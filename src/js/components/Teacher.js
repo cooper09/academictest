@@ -7,7 +7,7 @@ var Teacher = React.createClass({
 	},
 	render: function() {
 		 if (!this.props.visible) {
-		 	console.log("componentOne is off");
+		 	console.log("Teacher is off");
           return false; 
 	} 
 
@@ -21,6 +21,6 @@ var Teacher = React.createClass({
 			</div>
 			);
 	}//end render
-});//end ComponentOne
+});//end Teacher
 
 module.exports = Teacher;

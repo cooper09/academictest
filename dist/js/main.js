@@ -21346,7 +21346,6 @@ var AppConstants = require('../constants/AppConstants');
 
 var AppActions = {
 // Receive inital product data
-
   loadTeachers: function (data) {
 	console.log("AppActions.loadTeachers: ", data );
     AppDispatcher.handleViewAction({
@@ -21367,12 +21366,35 @@ var AppActions = {
         actionType: AppConstants.RECEIVE_QUIZZES,
         data: data
       })
-    }
+    },
+
+  // Show individual screens
+  showTeacher: function (data) {
+    console.log("AppActions.showTeacher: ", data );
+      AppDispatcher.handleViewAction({
+        actionType: AppConstants.SHOW_TEACHER,
+        data: data
+      })
+    },
+  showStudent: function (data) {
+    console.log("AppActions.showStudent: ", data );
+      AppDispatcher.handleViewAction({
+        actionType: AppConstants.SHOW_STUDENT,
+        data: data
+      })
+    },
+  showQuiz: function (data) {
+    console.log("AppActions.showQuiz: ", data );
+      AppDispatcher.handleViewAction({
+        actionType: AppConstants.SHOW_QUIZ,
+        data: data
+      })
+    }    
 
 }//end AppActions
 module.exports = AppActions;
 
-},{"../constants/AppConstants":193,"../dispatcher/AppDispatcher":194}],191:[function(require,module,exports){
+},{"../constants/AppConstants":195,"../dispatcher/AppDispatcher":196}],191:[function(require,module,exports){
 var React = require('react');
 // App controll code
 var AppActions = require('../actions/AppActions');
@@ -21381,6 +21403,8 @@ var AppStore = require('../stores/AppStore');
 //cooper s - add subcomponents here
 
 var Teacher = require('./Teacher.js');
+var Student = require('./Student.js');
+var Quiz = require('./Quiz.js');
 
 function getAppState(){
 	console.log("App.getAppState: ");
@@ -21399,25 +21423,37 @@ var App = React.createClass({displayName: "App",
 
 	getInitialState: function(){
 		return getAppState();
-
 	},
-
 	componentDidMount: function(){
-	//	AppStore.addChangeListener(this._onChange);
+		AppStore.addChangeListener(this._onChange);
 	},
-
 	componentUnmount: function(){
-	//	AppStore.removeChangeListener(this._onChange);
+		AppStore.removeChangeListener(this._onChange);
+	},
+	showTeacher: function() {
+		console.log("Show teacher Screen");
+		AppActions.showTeacher('Show Teacher Screen');
+	},
+	showStudent: function() {
+		console.log("Show student Screen");
+		AppActions.showStudent('Show Student Screen');
 	},
 	render: function(){
 
 		var teachers = this.state.teachers;
+		var students = this.state.students;
+		var quizzes = this.state.quizzes;
 
 		console.log("App loaded teachers: ", teachers );
 
 		return(
 			React.createElement("div", null, 
-				React.createElement(Teacher, {visible: this.state.teacherVisible, data: teachers})
+				React.createElement("div", {className: "buttons"}, 
+					React.createElement("button", {onClick: this.showTeacher}, "Login as Teacher"), React.createElement("button", {onClick: this.showStudent}, "Login as Student")
+				), 
+				React.createElement(Teacher, {visible: this.state.teacherVisible, data: teachers}), 
+				React.createElement(Student, {visible: this.state.studentVisible, data: students}), 
+				React.createElement(Quiz, {visible: this.state.quizVisible, data: quizzes})
 			)
 		);
 	},
@@ -21431,7 +21467,59 @@ var App = React.createClass({displayName: "App",
 
 module.exports = App;
 
-},{"../actions/AppActions":190,"../stores/AppStore":196,"./Teacher.js":192,"react":188}],192:[function(require,module,exports){
+},{"../actions/AppActions":190,"../stores/AppStore":198,"./Quiz.js":192,"./Student.js":193,"./Teacher.js":194,"react":188}],192:[function(require,module,exports){
+var React = require('react');
+
+var Quiz = React.createClass({displayName: "Quiz",
+
+	doSomething: function (){
+		console.log("Do Something!!!");
+	},
+	render: function() {
+		 if (!this.props.visible) {
+		 	console.log("Quiz is off");
+          return false; 
+	} 
+	
+		return (
+			React.createElement("div", null, 
+				React.createElement("h1", null, "Quiz Component"), 
+				React.createElement("input", {type: "text", value: this.state, 
+               onChange: this.doSomething})
+			)
+			);
+	}//end render
+});//end Quiz Component
+
+module.exports = Quiz;
+
+},{"react":188}],193:[function(require,module,exports){
+var React = require('react');
+
+var Student = React.createClass({displayName: "Student",
+
+	doSomething: function (){
+		console.log("Do Something!!!");
+	},
+	render: function() {
+		 if (!this.props.visible) {
+		 	console.log("Student is off");
+          return false; 
+	} 
+	
+		return (
+			React.createElement("div", null, 
+				React.createElement("h1", null, "Student Component"), 
+				React.createElement("input", {type: "text", value: this.state, 
+               onChange: this.doSomething})
+			)
+			);
+	}//end render
+});//end Student Component
+
+module.exports = Student;
+
+},{"react":188}],194:[function(require,module,exports){
 var React = require('react');
 
 var Teacher = React.createClass({displayName: "Teacher",
@@ -21441,7 +21529,7 @@ var Teacher = React.createClass({displayName: "Teacher",
 	},
 	render: function() {
 		 if (!this.props.visible) {
-		 	console.log("componentOne is off");
+		 	console.log("Teacher is off");
           return false; 
 	} 
 
@@ -21455,11 +21543,11 @@ var Teacher = React.createClass({displayName: "Teacher",
 			)
 			);
 	}//end render
-});//end ComponentOne
+});//end Teacher
 
 module.exports = Teacher;
 
-},{"react":188}],193:[function(require,module,exports){
+},{"react":188}],195:[function(require,module,exports){
 module.exports = {
 	RECEIVE_TEACHERS: "RECEIVE_TEACHERS",
 	RECEIVE_STUDENTS: "RECEIVE_STUDENTS",
@@ -21471,7 +21559,7 @@ module.exports = {
 
 }// end exports
 
-},{}],194:[function(require,module,exports){
+},{}],196:[function(require,module,exports){
 var Dispatcher = require('flux').Dispatcher;
 var assign = require('object-assign');
 
@@ -21487,7 +21575,7 @@ var AppDispatcher = assign(new Dispatcher(),{
 
 module.exports = AppDispatcher;
 
-},{"flux":28,"object-assign":31}],195:[function(require,module,exports){
+},{"flux":28,"object-assign":31}],197:[function(require,module,exports){
 var App = require('./components/App');
 var React = require('react');
 var ReactDOM = require('react-dom');
@@ -21505,7 +21593,7 @@ ReactDOM.render(
 	document.getElementById('app')
 );
 
-},{"./AppData.js":189,"./components/App":191,"./utils/appAPI":197,"react":188,"react-dom":32}],196:[function(require,module,exports){
+},{"./AppData.js":189,"./components/App":191,"./utils/appAPI":199,"react":188,"react-dom":32}],198:[function(require,module,exports){
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var AppConstants = require('../constants/AppConstants');
 var EventEmitter = require('events').EventEmitter;
@@ -21613,7 +21701,7 @@ AppDispatcher.register(function(payload){
 		break;
 	    case 'RECEIVE_STUDENTS':
 			console.log("AppStore - Receiving Data: ", action.data );	    
-			loadTeachers(action.data);
+			loadStudents(action.data);
 		break;
 		case 'RECEIVE_QUIZZES':
 			console.log("AppStore - Loading Quiz Data: ", action.data );	    
@@ -21643,7 +21731,7 @@ AppDispatcher.register(function(payload){
 
 module.exports = AppStore;
 
-},{"../constants/AppConstants":193,"../dispatcher/AppDispatcher":194,"events":26,"object-assign":31}],197:[function(require,module,exports){
+},{"../constants/AppConstants":195,"../dispatcher/AppDispatcher":196,"events":26,"object-assign":31}],199:[function(require,module,exports){
 
 var axios = require('axios');
 
@@ -21681,4 +21769,4 @@ module.exports = {
 		
 }; //end exports
 
-},{"../actions/AppActions":190,"axios":1}]},{},[195]);
+},{"../actions/AppActions":190,"axios":1}]},{},[197]);

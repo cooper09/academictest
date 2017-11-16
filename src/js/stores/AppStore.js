@@ -105,7 +105,7 @@ AppDispatcher.register(function(payload){
 		break;
 	    case 'RECEIVE_STUDENTS':
 			console.log("AppStore - Receiving Data: ", action.data );	    
-			loadTeachers(action.data);
+			loadStudents(action.data);
 		break;
 		case 'RECEIVE_QUIZZES':
 			console.log("AppStore - Loading Quiz Data: ", action.data );	    

@@ -6,10 +6,10 @@ var Quiz = React.createClass({
 		console.log("Do Something!!!");
 	},
 	render: function() {
-	/*	 if (!this.props.visible) {
-		 	console.log("componentOne is off");
+		 if (!this.props.visible) {
+		 	console.log("Quiz is off");
           return false; 
-	} */
+	} 
 	
 		return (
 			<div>
@@ -19,6 +19,6 @@ var Quiz = React.createClass({
 			</div>
 			);
 	}//end render
-});//end Student Component
+});//end Quiz Component
 
 module.exports = Quiz;
