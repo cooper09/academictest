@@ -48,14 +48,16 @@ var App = React.createClass({
 		var quizzes = this.state.quizzes;
 
 		console.log("App loaded teachers: ", teachers );
+		console.log("App loaded students: ", students );
+		console.log("App loaded quizzes: ", quizzes );
 
 		return(
 			<div>
 				<div className="buttons">
 					<button onClick={this.showTeacher}>Login as Teacher</button><button onClick={this.showStudent}>Login as Student</button>
 				</div>
-				<Teacher visible={this.state.teacherVisible} data={teachers}/>
-				<Student visible={this.state.studentVisible} data={students}/>
+				<Teacher visible={this.state.teacherVisible} data={students}/>
+				<Student visible={this.state.studentVisible} data={teachers}/>
 				<Quiz visible={this.state.quizVisible} data={quizzes}/>
 			</div>
 		);

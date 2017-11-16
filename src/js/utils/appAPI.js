@@ -21,7 +21,7 @@ module.exports = {
 				var students = JSON.parse(localStorage.getItem('students'));
 				console.log("appAPI.getStudents: ", students);
 
-				//AppActions.loadPages(data); */
+				AppActions.loadStudents(students);
 			},// end getStudents
 
 				
@@ -30,7 +30,7 @@ module.exports = {
 				var quizzes = JSON.parse(localStorage.getItem('quizzes'));
 				console.log("appAPI.getQuizzes: ", quizzes);
 		
-				//AppActions.loadPages(data); */
+				AppActions.loadQuizzes(quizzes); 
 			}// end getTeachers
 		
 }; //end exports

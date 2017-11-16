@@ -63,16 +63,16 @@ var AppStore = assign({}, EventEmitter.prototype, {
 	    return _quizzes;
 	},
 	getTeacherVisible: function () {
-		console.log('AppStore.getTeacherVisible: ' + _teacherVisible );
+		//console.log('AppStore.getTeacherVisible: ' + _teacherVisible );
 		return _teacherVisible;
 	},
 	  // Return cart visibility state
 	getStudentVisible: function () {
-		console.log('AppStore.getStudentVisible: ' + _studentVisible );
+		//console.log('AppStore.getStudentVisible: ' + _studentVisible );
 		return _studentVisible;
 	},
 	getQuizVisible: function () {
-		console.log('AppStore.getQuizVisible: ' + _quizVisible );
+		//console.log('AppStore.getQuizVisible: ' + _quizVisible );
 		return _quizVisible;
 	},
 

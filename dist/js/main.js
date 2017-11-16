@@ -21445,14 +21445,16 @@ var App = React.createClass({displayName: "App",
 		var quizzes = this.state.quizzes;
 
 		console.log("App loaded teachers: ", teachers );
+		console.log("App loaded students: ", students );
+		console.log("App loaded quizzes: ", quizzes );
 
 		return(
 			React.createElement("div", null, 
 				React.createElement("div", {className: "buttons"}, 
 					React.createElement("button", {onClick: this.showTeacher}, "Login as Teacher"), React.createElement("button", {onClick: this.showStudent}, "Login as Student")
 				), 
-				React.createElement(Teacher, {visible: this.state.teacherVisible, data: teachers}), 
-				React.createElement(Student, {visible: this.state.studentVisible, data: students}), 
+				React.createElement(Teacher, {visible: this.state.teacherVisible, data: students}), 
+				React.createElement(Student, {visible: this.state.studentVisible, data: teachers}), 
 				React.createElement(Quiz, {visible: this.state.quizVisible, data: quizzes})
 			)
 		);
@@ -21482,7 +21484,7 @@ var Quiz = React.createClass({displayName: "Quiz",
 	} 
 	
 		return (
-			React.createElement("div", null, 
+			React.createElement("div", {className: "center option animated fadeIn"}, 
 				React.createElement("h1", null, "Quiz Component"), 
 				React.createElement("input", {type: "text", value: this.state, 
                onChange: this.doSomething})
@@ -21508,7 +21510,7 @@ var Student = React.createClass({displayName: "Student",
 	} 
 	
 		return (
-			React.createElement("div", null, 
+			React.createElement("div", {className: "center option animated fadeIn"}, 
 				React.createElement("h1", null, "Student Component"), 
 				React.createElement("input", {type: "text", value: this.state, 
                onChange: this.doSomething})
@@ -21534,14 +21536,58 @@ var Teacher = React.createClass({displayName: "Teacher",
 	} 
 
 	console.log("Teachers = current data: ", this.props.data );
+	var studentArr = [];
+	studentArr = this.props.data;
+
+	var subjectArr = [];
+	subjectArr = studentArr[0].subjects;
+
+	console.log('quiz result: ', subjectArr[0].Math[1].quiz2 );
+	console.log('subjectArr: ', subjectArr[0].Math );
+
+	var quizArr = [];
+	mathArr = subjectArr[0];
+
+	console.log('mathArr: ', mathArr );
+
+	quizArr = mathArr[0];
+	console.log('quizArr: ', quizArr );
+
+	var num=0;
 		
 		return (
-			React.createElement("div", null, 
+			React.createElement("div", {className: "center option animated fadeIn"}, 
 				React.createElement("h1", null, "Teacher Component"), 
-				React.createElement("input", {type: "text", value: this.state, 
-               onChange: this.doSomething})
+				
+					studentArr.map(function(studentArr){
+						++num;
+						return React.createElement("div", {key: num}, 
+									React.createElement("b", null, "Math"), 
+									React.createElement("br", null), React.createElement("br", null), 
+									React.createElement("b", null, studentArr.name), 
+									React.createElement("br", null), React.createElement("br", null), 
+									React.createElement("b", null, "Quiz1 Score: ", subjectArr[0].Math[0].quiz1), 
+									React.createElement("br", null), 
+									React.createElement("b", null, "Quiz2 Score: ", subjectArr[0].Math[1].quiz2), 
+									React.createElement("br", null), 
+									React.createElement("b", null, "Quiz3 Score: ", subjectArr[0].Math[2].quiz3), 
+									React.createElement("br", null), 
+									React.createElement("b", null, "Quiz4 Score: ", subjectArr[0].Math[3].quiz4), 
+									React.createElement("br", null), React.createElement("br", null), 
+									React.createElement("button", {onClick: handleItemClick.bind(this, num, quizArr)}, "grade")
+								)	
+					})	
+				
 			)
-			);
+		);
+
+		function handleItemClick (num, arr){
+			console.log("nandleItemClick: ", arr );
+			
+			console.log("Grade our Student");
+			
+
+		}//end handleItemClick
 	}//end render
 });//end Teacher
 
@@ -21659,16 +21705,16 @@ var AppStore = assign({}, EventEmitter.prototype, {
 	    return _quizzes;
 	},
 	getTeacherVisible: function () {
-		console.log('AppStore.getTeacherVisible: ' + _teacherVisible );
+		//console.log('AppStore.getTeacherVisible: ' + _teacherVisible );
 		return _teacherVisible;
 	},
 	  // Return cart visibility state
 	getStudentVisible: function () {
-		console.log('AppStore.getStudentVisible: ' + _studentVisible );
+		//console.log('AppStore.getStudentVisible: ' + _studentVisible );
 		return _studentVisible;
 	},
 	getQuizVisible: function () {
-		console.log('AppStore.getQuizVisible: ' + _quizVisible );
+		//console.log('AppStore.getQuizVisible: ' + _quizVisible );
 		return _quizVisible;
 	},
 
@@ -21755,7 +21801,7 @@ module.exports = {
 				var students = JSON.parse(localStorage.getItem('students'));
 				console.log("appAPI.getStudents: ", students);
 
-				//AppActions.loadPages(data); */
+				AppActions.loadStudents(students);
 			},// end getStudents
 
 				
@@ -21764,7 +21810,7 @@ module.exports = {
 				var quizzes = JSON.parse(localStorage.getItem('quizzes'));
 				console.log("appAPI.getQuizzes: ", quizzes);
 		
-				//AppActions.loadPages(data); */
+				AppActions.loadQuizzes(quizzes); 
 			}// end getTeachers
 		
 }; //end exports

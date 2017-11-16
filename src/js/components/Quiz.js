@@ -12,7 +12,7 @@ var Quiz = React.createClass({
 	} 
 	
 		return (
-			<div>
+			<div className='center option animated fadeIn'>
 				<h1>Quiz Component</h1>
 				<input type = "text" value = {this.state} 
                onChange = {this.doSomething} />
