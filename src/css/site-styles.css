@@ -1,0 +1,28 @@
+/* line 1, ../sass/partials/_main.sass */
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 6, ../sass/partials/_main.sass */
+html {
+  height: 100%;
+}
+
+/* line 9, ../sass/partials/_main.sass */
+body {
+  background-size: 100% 100%;
+  margin: 2.5em;
+}
+@media (max-width: 651px) {
+  /* line 9, ../sass/partials/_main.sass */
+  body {
+    margin: 0.5em;
+  }
+}
+
+/* line 15, ../sass/partials/_main.sass */
+h1 {
+  color: brown;
+}

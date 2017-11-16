@@ -1,0 +1,26 @@
+{
+  "name": "fluxapp",
+  "version": "1.0.0",
+  "description": "Simple React.js template",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Cooper Smith - Sonya Enterprises",
+  "license": "ISC",
+  "devDependencies": {
+    "browserify": "*",
+    "flux": "*",
+    "gulp": "*",
+    "reactify": "*",
+    "vinyl-source-stream": "*",
+    "object-assign": "*"
+  },
+  "dependencies": {
+    "axios": "*",
+    "fusioncharts": "*",
+    "react": "*",
+    "react-dom": "*",
+    "react-fusioncharts": "*"
+  }
+}
