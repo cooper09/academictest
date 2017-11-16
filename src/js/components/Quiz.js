@@ -1,6 +1,6 @@
 var React = require('react');
 
-var ComponentOne = React.createClass({
+var Quiz = React.createClass({
 
 	doSomething: function (){
 		console.log("Do Something!!!");
@@ -10,16 +10,15 @@ var ComponentOne = React.createClass({
 		 	console.log("componentOne is off");
           return false; 
 	} */
-
-		
+	
 		return (
 			<div>
-				<h1> Simple functional Component</h1>
+				<h1>Quiz Component</h1>
 				<input type = "text" value = {this.state} 
                onChange = {this.doSomething} />
 			</div>
 			);
 	}//end render
-});//end ComponentOne
+});//end Student Component
 
-module.exports = ComponentOne;
+module.exports = Quiz;

@@ -1,42 +1,36 @@
-//var AppActions = require('../actions/AppActions');
+
 var axios = require('axios');
+
+var AppActions = require('../actions/AppActions');
 
 module.exports = {
 
-	 // Load mock product data from localStorage into ProductStore via Action
-  getData: function () {
+	// Load mock product data from localStorage into ProductStore via Action
+	
+	getTeachers: function () {
 
-  	// Performing a GET request
-	//axios.get('http://digitest-authorize.rhcloud.com/mega-data')
-	//axios.get('http://hkex01.mpointx.com/D_worker_request/rtb24/mpointrtb')
-	//axios.get('http://digitest-authorize.rhcloud.com/ad')
-	/*	axios.get('http://hkex01.mpointx.com/D_worker_request/rtb24/smartyads')
-	  .then(function(response){
-	    console.log("appAPI.getPageData: " ,response.data[0]); // ex.: { user: 'Your User'}
-	    console.log(response.status); // ex.: 200
+		var teachers = JSON.parse(localStorage.getItem('teachers'));
+		console.log("appAPI.getTeachers: ", teachers);
 
-			//Lets taka good look at our data:
+    AppActions.loadTeachers(teachers); 
+  },// end getTeachers
 
-			console.log("appAPI - our id: ", response.data );
-
-			for (i=0 ; i < response.data.map.length ; i++ ) {
-				console.log("appAPI - our DSP map: ", response.data[i].DSPID ); 
-			}
-
-			const numbers = response.data;
-
-			console.log("Numbers: ", numbers );
-
-	    var data = response.data;
-    	AppActions.loadPages(data);
-	  });
-*/
-		var data = JSON.parse(localStorage.getItem('teachers'));
 		
-		console.log("appAPI.getPageData: ", data);
+	getStudents: function () {
+		
+				var students = JSON.parse(localStorage.getItem('students'));
+				console.log("appAPI.getStudents: ", students);
 
+				//AppActions.loadPages(data); */
+			},// end getStudents
 
-    //AppActions.loadPages(data); */
-  }
-
+				
+	getQuizzes: function () {
+		
+				var quizzes = JSON.parse(localStorage.getItem('quizzes'));
+				console.log("appAPI.getQuizzes: ", quizzes);
+		
+				//AppActions.loadPages(data); */
+			}// end getTeachers
+		
 }; //end exports

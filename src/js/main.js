@@ -6,7 +6,9 @@ var AppData = require('./AppData.js');
 var AppAPI = require('./utils/appAPI');
 
 AppData.init();
-AppAPI.getData();
+AppAPI.getTeachers();
+AppAPI.getStudents();
+AppAPI.getQuizzes();
 
 ReactDOM.render(
 	<App />,

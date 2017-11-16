@@ -1,5 +1,16 @@
 module.exports = {
   // Load Mock Product Data Into localStorage
+  /* The three data sources are 
+      1) Teachers
+      2) Students
+      3) Quizzes
+
+    Since these are seperate classes it allows all kinds of relationships, single-to-single, single-to-many
+      many-to-many. 
+
+    Normally this data would come from an API, but since this is only a demo, we'll use static 
+    local storage for convenience and speed.
+  */
   init: function () {
     console.log("AppData init");
     localStorage.clear();
@@ -88,7 +99,7 @@ module.exports = {
         }//end science quizzes
     ]}]));//end setItem(students)
 
-      localStorage.setItem('quizs', JSON.stringify([
+      localStorage.setItem('quizzes', JSON.stringify([
         {
           subject: 'Math',
           question1: 'What has four legs and flys',

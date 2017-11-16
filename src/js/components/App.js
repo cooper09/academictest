@@ -1,16 +1,22 @@
 var React = require('react');
+// App controll code
+var AppActions = require('../actions/AppActions');
+var AppStore = require('../stores/AppStore');
 
 //cooper s - add subcomponents here
 
-var ComponentOne = require('./ComponentOne.js');
+var Teacher = require('./Teacher.js');
 
 function getAppState(){
 	console.log("App.getAppState: ");
 	return {
-	/*	//app: AppStore.getState(),
-		pages: AppStore.getPages(),
-		oneVisible: AppStore.getOneVisible(),
-		twoVisible: AppStore.getTwoVisible() */
+		//app: AppStore.getState(),
+		teachers: AppStore.getTeachers(),
+		students: AppStore.getStudents(),
+		quizzes: AppStore.getQuizzes(),
+		teacherVisible: AppStore.getTeacherVisible(),
+		studentVisible: AppStore.getStudentVisible(),
+		quizVisible: AppStore.getQuizVisible()
 	}
 }
 
@@ -30,11 +36,13 @@ var App = React.createClass({
 	},
 	render: function(){
 
-		//var dsps = this.state.pages.map()
+		var teachers = this.state.teachers;
+
+		console.log("App loaded teachers: ", teachers );
 
 		return(
 			<div>
-				<ComponentOne />
+				<Teacher visible={this.state.teacherVisible} data={teachers}/>
 			</div>
 		);
 	},
@@ -42,7 +50,7 @@ var App = React.createClass({
 	// Update view state when change is received
 	_onChange: function(){
 		console.log("A change has occured....")
-		//this.setState(getAppState());
+		this.setState(getAppState());
 	}
 });
 
