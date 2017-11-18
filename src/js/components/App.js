@@ -18,7 +18,9 @@ function getAppState(){
 		quizzes: AppStore.getQuizzes(),
 		teacherVisible: AppStore.getTeacherVisible(),
 		studentVisible: AppStore.getStudentVisible(),
-		quizVisible: AppStore.getQuizVisible()
+		quizVisible: AppStore.getQuizVisible(),
+		scores: AppStore.getQuizScores(),
+		questions: AppStore.getQuestions()
 	}
 }
 
@@ -46,19 +48,23 @@ var App = React.createClass({
 		var teachers = this.state.teachers;
 		var students = this.state.students;
 		var quizzes = this.state.quizzes;
+		var scores = this.state.scores;
+		var questions = this.state.questions;
 
 		console.log("App loaded teachers: ", teachers );
 		console.log("App loaded students: ", students );
 		console.log("App loaded quizzes: ", quizzes );
+		console.log("Current quiz questions: ", questions );
+		console.log("Current quiz scores: ", scores );
 
 		return(
 			<div>
 				<div className="buttons">
 					<button onClick={this.showTeacher}>Login as Teacher</button><button onClick={this.showStudent}>Login as Student</button>
 				</div>
-				<Teacher visible={this.state.teacherVisible} data={students}/>
-				<Student visible={this.state.studentVisible} data={teachers}/>
-				<Quiz visible={this.state.quizVisible} data={quizzes}/>
+				<Teacher visible={this.state.teacherVisible} data={students} scores={scores}/>
+				<Student visible={this.state.studentVisible} data={quizzes}/>
+				<Quiz visible={this.state.quizVisible} data={scores} questions={questions}/>
 			</div>
 		);
 	},

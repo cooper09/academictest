@@ -9,8 +9,10 @@ var CHANGE_EVENT = 'change';
 var _teachers = [];
 var _students = [];
 var _quizzes = [];
+var _questions = [];
 
 var _teacherVisible = false, _studentVisible = false, _quizVisible=false;
+var _quiz1=0, _quiz2=0, _quiz3=0, _quiz4=0;
 
 // Method to load product data from mock API
 function loadTeachers(data) {
@@ -43,11 +45,36 @@ function setStudentVisible(visible) {
 	_quizVisible=false;
 }
 
-function setQuizVisible(visible) {
+function setQuizVisible(visible, question) {
+	//alert("AppStore.setQuizVisible!!", visible );
 	_teacherVisible=false;
 	_studentVisible=false;
 	_quizVisible=visible;
+	_questions = question;
 }
+// update Quiz Scores
+function updateQuizScores(data) {
+	console.log("AppStore.updateQuizScores: ", data );
+	
+	switch (data) {
+		case '1':
+			console.log('update quiz 1');
+			_quiz1 = ++_quiz1;			
+		break;
+		case '2':
+			console.log('update quiz 2');
+			_quiz2 = ++_quiz2;
+		break;
+		case '3':
+			console.log('update quiz 3');
+			_quiz3 = ++_quiz3;
+		break;
+		case '4':
+			console.log('update quiz 4');
+			_quiz4 = ++_quiz4;
+		break;
+	}//end switch
+}//end updateQuizScores
 
 // The AppStore, like the name implies manages the data and its updates on screen
 var AppStore = assign({}, EventEmitter.prototype, {
@@ -75,7 +102,15 @@ var AppStore = assign({}, EventEmitter.prototype, {
 		//console.log('AppStore.getQuizVisible: ' + _quizVisible );
 		return _quizVisible;
 	},
-
+	getQuizScores: function () {
+		//console.log('AppStore.getQuizVisible: ' + _quizVisible );
+		var quizArr = [_quiz1, _quiz2, _quiz3, _quiz4]
+		return quizArr
+	},
+	getQuestions: function () {
+		//console.log('AppStore.getQuizVisible: ' + _quizVisible );
+		return _questions
+	},
 	/* 
 		The main Controller is based on the BroadCast model. Changes
 		are broadcast to all components to deal with as they wish 
@@ -123,10 +158,16 @@ AppDispatcher.register(function(payload){
 	      setStudentVisible(_visible);
 	 	break;
 	 	case 'SHOW_QUIZ':
-	  	  console.log("Show Quiz: ", payload );
-	      _visible=true;
-	      setQuizVisible(_visible);
+	  	  console.log("AppStore - Show Quiz: ", payload.action.data.question1 );
+		  _visible=true;
+		  var question = payload.action.data.question1;
+	      setQuizVisible(_visible, question );
 		break;
+// QUIZ CONTROLS
+		case 'UPDATE_QUIZ':
+			console.log("Update Quiz: ", payload );
+			updateQuizScore(payload);
+		break;		
 	}//end switch
 
 	AppStore.emitChange();

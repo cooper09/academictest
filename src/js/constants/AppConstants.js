@@ -5,7 +5,7 @@ module.exports = {
 	//SHOWEACS
 	SHOW_TEACHER: "SHOW_TEACHER", 
 	SHOW_STUDENT: "SHOW_STUDENT",
-	SHOW_QUIZZ: "SHOW_QUIZZ"  
+	SHOW_QUIZ: "SHOW_QUIZ"  
 
 }// end exports
 

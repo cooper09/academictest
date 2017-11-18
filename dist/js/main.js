@@ -21415,7 +21415,9 @@ function getAppState(){
 		quizzes: AppStore.getQuizzes(),
 		teacherVisible: AppStore.getTeacherVisible(),
 		studentVisible: AppStore.getStudentVisible(),
-		quizVisible: AppStore.getQuizVisible()
+		quizVisible: AppStore.getQuizVisible(),
+		scores: AppStore.getQuizScores(),
+		questions: AppStore.getQuestions()
 	}
 }
 
@@ -21443,19 +21445,23 @@ var App = React.createClass({displayName: "App",
 		var teachers = this.state.teachers;
 		var students = this.state.students;
 		var quizzes = this.state.quizzes;
+		var scores = this.state.scores;
+		var questions = this.state.questions;
 
 		console.log("App loaded teachers: ", teachers );
 		console.log("App loaded students: ", students );
 		console.log("App loaded quizzes: ", quizzes );
+		console.log("Current quiz questions: ", questions );
+		console.log("Current quiz scores: ", scores );
 
 		return(
 			React.createElement("div", null, 
 				React.createElement("div", {className: "buttons"}, 
 					React.createElement("button", {onClick: this.showTeacher}, "Login as Teacher"), React.createElement("button", {onClick: this.showStudent}, "Login as Student")
 				), 
-				React.createElement(Teacher, {visible: this.state.teacherVisible, data: students}), 
-				React.createElement(Student, {visible: this.state.studentVisible, data: teachers}), 
-				React.createElement(Quiz, {visible: this.state.quizVisible, data: quizzes})
+				React.createElement(Teacher, {visible: this.state.teacherVisible, data: students, scores: scores}), 
+				React.createElement(Student, {visible: this.state.studentVisible, data: quizzes}), 
+				React.createElement(Quiz, {visible: this.state.quizVisible, data: scores, questions: questions})
 			)
 		);
 	},
@@ -21482,12 +21488,26 @@ var Quiz = React.createClass({displayName: "Quiz",
 		 	console.log("Quiz is off");
           return false; 
 	} 
-	
+    
+    console.log("current quetions: ", this.props.questions );
+
 		return (
 			React.createElement("div", {className: "center option animated fadeIn"}, 
 				React.createElement("h1", null, "Quiz Component"), 
-				React.createElement("input", {type: "text", value: this.state, 
-               onChange: this.doSomething})
+				React.createElement("input", {type: "text", value: this.props.questions, onChange: this.doSomething}), 
+
+                React.createElement("form", null, 
+                    React.createElement("input", {onChange: this.handleFruitChange, type: "checkbox", name: "fruit", value: "apple"}), "Apple", 
+                    React.createElement("input", {onChange: this.handleFruitChange, type: "checkbox", name: "fruit", value: "orange"}), "Orange", 
+                    React.createElement("input", {onChange: this.handleFruitChange, type: "checkbox", name: "fruit", value: "watermelon"}), "Watermelon"
+                ), 
+
+               React.createElement("form", {onSubmit: this.doSomething}, 
+                    this.props.questions, 
+                        React.createElement("button", {type: "submit"}, "Submit")
+                    )
+            
+
 			)
 			);
 	}//end render
@@ -21497,23 +21517,56 @@ module.exports = Quiz;
 
 },{"react":188}],193:[function(require,module,exports){
 var React = require('react');
+var AppActions = require('../actions/AppActions');
 
 var Student = React.createClass({displayName: "Student",
 
-	doSomething: function (){
-		console.log("Do Something!!!");
+	quizOne: function (){
+		console.log("Show Quiz One");
+		var questions = {
+			"question1": "What has four legs and flies?"
+		}
+		AppActions.showQuiz(questions);
 	},
+	quizTwo: function (){
+		console.log("Show Quiz Two");
+		var questions = {
+			"question1": "How many angels can dance on the head of a pin?"
+		}
+		AppActions.showQuiz(questions);
+	},
+	quizThree: function (){
+		console.log("Show Quiz Three");
+		var questions = {
+			"question1": "When was the war of 1812?"
+		}
+		AppActions.showQuiz(questions);
+	},	
+	quizFour: function (){
+		console.log("Show Quiz Four");
+		var questions = {
+			"question1": "Does this make sense?"
+		}
+		AppActions.showQuiz(questions);
+	},
+
 	render: function() {
 		 if (!this.props.visible) {
 		 	console.log("Student is off");
           return false; 
 	} 
 	
+	console.log('Student.js - props data: ', this.props.data );
 		return (
 			React.createElement("div", {className: "center option animated fadeIn"}, 
-				React.createElement("h1", null, "Student Component"), 
-				React.createElement("input", {type: "text", value: this.state, 
-               onChange: this.doSomething})
+				React.createElement("h1", null, "Student One"), 
+				React.createElement("b", null, "Math"), 
+				React.createElement("br", null), React.createElement("br", null), 
+				React.createElement("button", {onClick: this.quizOne}, "Quiz One"), React.createElement("br", null), 
+				React.createElement("button", {onClick: this.quizTwo}, "Quiz Two"), React.createElement("br", null), 
+				React.createElement("button", {onClick: this.quizThree}, "Quiz Three"), React.createElement("br", null), 
+				React.createElement("button", {onClick: this.quizFour}, "Quiz Four"), React.createElement("br", null), 
+				React.createElement("br", null)
 			)
 			);
 	}//end render
@@ -21521,10 +21574,19 @@ var Student = React.createClass({displayName: "Student",
 
 module.exports = Student;
 
-},{"react":188}],194:[function(require,module,exports){
+},{"../actions/AppActions":190,"react":188}],194:[function(require,module,exports){
 var React = require('react');
 
 var Teacher = React.createClass({displayName: "Teacher",
+
+	getInitialState: function(){
+		return {
+				quiz1: 0,
+				quiz2: 0,
+				quiz3: 0,
+				quiz4: 0
+		}
+	},
 
 	doSomething: function (){
 		console.log("Do Something!!!");
@@ -21538,6 +21600,9 @@ var Teacher = React.createClass({displayName: "Teacher",
 	console.log("Teachers = current data: ", this.props.data );
 	var studentArr = [];
 	studentArr = this.props.data;
+
+	scoreArr = this.props.scores;
+	console.log("Teacher - scoreArr: ", scoreArr );
 
 	var subjectArr = [];
 	subjectArr = studentArr[0].subjects;
@@ -21566,15 +21631,15 @@ var Teacher = React.createClass({displayName: "Teacher",
 									React.createElement("br", null), React.createElement("br", null), 
 									React.createElement("b", null, studentArr.name), 
 									React.createElement("br", null), React.createElement("br", null), 
-									React.createElement("b", null, "Quiz1 Score: ", subjectArr[0].Math[0].quiz1), 
+									React.createElement("b", null, "Quiz1 Score: ", scoreArr[0] ), 
 									React.createElement("br", null), 
-									React.createElement("b", null, "Quiz2 Score: ", subjectArr[0].Math[1].quiz2), 
+									React.createElement("b", null, "Quiz2 Score: ", scoreArr[1] ), 
 									React.createElement("br", null), 
-									React.createElement("b", null, "Quiz3 Score: ", subjectArr[0].Math[2].quiz3), 
+									React.createElement("b", null, "Quiz3 Score: ", scoreArr[2] ), 
 									React.createElement("br", null), 
-									React.createElement("b", null, "Quiz4 Score: ", subjectArr[0].Math[3].quiz4), 
+									React.createElement("b", null, "Quiz4 Score: ", scoreArr[3] ), 
 									React.createElement("br", null), React.createElement("br", null), 
-									React.createElement("button", {onClick: handleItemClick.bind(this, num, quizArr)}, "grade")
+									React.createElement("button", {onClick: handleItemClick.bind(this, num, scoreArr)}, "grade")
 								)	
 					})	
 				
@@ -21585,7 +21650,7 @@ var Teacher = React.createClass({displayName: "Teacher",
 			console.log("nandleItemClick: ", arr );
 			
 			console.log("Grade our Student");
-			
+
 
 		}//end handleItemClick
 	}//end render
@@ -21601,7 +21666,7 @@ module.exports = {
 	//SHOWEACS
 	SHOW_TEACHER: "SHOW_TEACHER", 
 	SHOW_STUDENT: "SHOW_STUDENT",
-	SHOW_QUIZZ: "SHOW_QUIZZ"  
+	SHOW_QUIZ: "SHOW_QUIZ"  
 
 }// end exports
 
@@ -21651,8 +21716,10 @@ var CHANGE_EVENT = 'change';
 var _teachers = [];
 var _students = [];
 var _quizzes = [];
+var _questions = [];
 
 var _teacherVisible = false, _studentVisible = false, _quizVisible=false;
+var _quiz1=0, _quiz2=0, _quiz3=0, _quiz4=0;
 
 // Method to load product data from mock API
 function loadTeachers(data) {
@@ -21685,11 +21752,36 @@ function setStudentVisible(visible) {
 	_quizVisible=false;
 }
 
-function setQuizVisible(visible) {
+function setQuizVisible(visible, question) {
+	//alert("AppStore.setQuizVisible!!", visible );
 	_teacherVisible=false;
 	_studentVisible=false;
 	_quizVisible=visible;
+	_questions = question;
 }
+// update Quiz Scores
+function updateQuizScores(data) {
+	console.log("AppStore.updateQuizScores: ", data );
+	
+	switch (data) {
+		case '1':
+			console.log('update quiz 1');
+			_quiz1 = ++_quiz1;			
+		break;
+		case '2':
+			console.log('update quiz 2');
+			_quiz2 = ++_quiz2;
+		break;
+		case '3':
+			console.log('update quiz 3');
+			_quiz3 = ++_quiz3;
+		break;
+		case '4':
+			console.log('update quiz 4');
+			_quiz4 = ++_quiz4;
+		break;
+	}//end switch
+}//end updateQuizScores
 
 // The AppStore, like the name implies manages the data and its updates on screen
 var AppStore = assign({}, EventEmitter.prototype, {
@@ -21717,7 +21809,15 @@ var AppStore = assign({}, EventEmitter.prototype, {
 		//console.log('AppStore.getQuizVisible: ' + _quizVisible );
 		return _quizVisible;
 	},
-
+	getQuizScores: function () {
+		//console.log('AppStore.getQuizVisible: ' + _quizVisible );
+		var quizArr = [_quiz1, _quiz2, _quiz3, _quiz4]
+		return quizArr
+	},
+	getQuestions: function () {
+		//console.log('AppStore.getQuizVisible: ' + _quizVisible );
+		return _questions
+	},
 	/* 
 		The main Controller is based on the BroadCast model. Changes
 		are broadcast to all components to deal with as they wish 
@@ -21765,10 +21865,16 @@ AppDispatcher.register(function(payload){
 	      setStudentVisible(_visible);
 	 	break;
 	 	case 'SHOW_QUIZ':
-	  	  console.log("Show Quiz: ", payload );
-	      _visible=true;
-	      setQuizVisible(_visible);
+	  	  console.log("AppStore - Show Quiz: ", payload.action.data.question1 );
+		  _visible=true;
+		  var question = payload.action.data.question1;
+	      setQuizVisible(_visible, question );
 		break;
+// QUIZ CONTROLS
+		case 'UPDATE_QUIZ':
+			console.log("Update Quiz: ", payload );
+			updateQuizScore(payload);
+		break;		
 	}//end switch
 
 	AppStore.emitChange();

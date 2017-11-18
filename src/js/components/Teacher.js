@@ -2,6 +2,15 @@ var React = require('react');
 
 var Teacher = React.createClass({
 
+	getInitialState: function(){
+		return {
+				quiz1: 0,
+				quiz2: 0,
+				quiz3: 0,
+				quiz4: 0
+		}
+	},
+
 	doSomething: function (){
 		console.log("Do Something!!!");
 	},
@@ -14,6 +23,9 @@ var Teacher = React.createClass({
 	console.log("Teachers = current data: ", this.props.data );
 	var studentArr = [];
 	studentArr = this.props.data;
+
+	scoreArr = this.props.scores;
+	console.log("Teacher - scoreArr: ", scoreArr );
 
 	var subjectArr = [];
 	subjectArr = studentArr[0].subjects;
@@ -42,15 +54,15 @@ var Teacher = React.createClass({
 									<br/><br/>
 									<b>{studentArr.name}</b>
 									<br/><br />
-									<b>Quiz1 Score: {subjectArr[0].Math[0].quiz1 }</b>
+									<b>Quiz1 Score: {scoreArr[0] }</b>
 									<br/>
-									<b>Quiz2 Score: {subjectArr[0].Math[1].quiz2 }</b>
+									<b>Quiz2 Score: {scoreArr[1] }</b>
 									<br/>
-									<b>Quiz3 Score: {subjectArr[0].Math[2].quiz3 }</b>
+									<b>Quiz3 Score: {scoreArr[2] }</b>
 									<br/>
-									<b>Quiz4 Score: {subjectArr[0].Math[3].quiz4 }</b>
+									<b>Quiz4 Score: {scoreArr[3] }</b>
 									<br/><br/>
-									<button onClick={handleItemClick.bind(this, num, quizArr )}>grade</button>
+									<button onClick={handleItemClick.bind(this, num, scoreArr )}>grade</button>
 								</div>	
 					})	
 				}
@@ -61,7 +73,7 @@ var Teacher = React.createClass({
 			console.log("nandleItemClick: ", arr );
 			
 			console.log("Grade our Student");
-			
+
 
 		}//end handleItemClick
 	}//end render
