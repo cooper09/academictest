@@ -21757,9 +21757,10 @@ var Teacher = React.createClass({displayName: "Teacher",
 				break;
 				case 2:
 					alert ("Student One currently has an B average");
+				break;
 				case 3:
 					alert ("Student One currently has an A average");
-			break;
+				break;
 			}//end switch
 	
 
@@ -21884,14 +21885,20 @@ function updateScores(quiz, score) {
 	switch (quiz) {
 		case 1:
 			console.log('update quiz 1');
-			_quiz1 = score;			
+			score = parseInt(score);
+			console.log("score: ", score );
+			_quiz1 = (score);			
 		break;
 		case 2:
 			console.log('update quiz 2');
+			score = parseInt(score);
+			console.log("score: ", score );
 			_quiz2 = score;
 		break;
 		case 3:
 			console.log('update quiz 3');
+			score = parseInt(score);
+			console.log("score: ", score );
 			_quiz3 = score;
 		break;
 	}//end switch

@@ -83,9 +83,10 @@ var Teacher = React.createClass({
 				break;
 				case 2:
 					alert ("Student One currently has an B average");
+				break;
 				case 3:
 					alert ("Student One currently has an A average");
-			break;
+				break;
 			}//end switch
 	
 
