@@ -8,9 +8,57 @@ html
 
 body
   background-size: 100% 100%
-  margin: 2.5em
+  font-family: "Open Sans"
+  font-style: normal
+  font-strength: 400
+  font-size: 1em
+  color: #37474f
   +at-breakpoint($phone)
-    margin: 0.5em
+    background: #ccc
+    padding: 0em
 
 h1
-  color: brown
+  font-family: "Open Sans"
+  font-style: normal
+  font-strength: 400
+  font-size: 1.5em
+  color: #37474f 
+
+.mainScrn 
+  +span-columns(12)
+  height: 100%
+  background: #ccc
+  border: 1px solid #666
+  padding: 1em
+  color: #333
+  margin-top: 1em
+  margin-left: auto
+  margin-right: auto
+  box-shadow: 0 0 5px rgba(0, 0, 0, .5)
+
+.btn
+  +span-columns(6)
+  cursor: pointer
+  background: blue
+  border: 1 solid #ccc
+  color: #ccc
+  font-size: 1em
+  font-family: "Open Sans"
+  font-style: normal
+  font-strength: 400
+  +at-breakpoint($phone)
+    +span-columns(12)
+
+.scrnBtn
+  +span-columns(4)
+  cursor: pointer
+  background: blue
+  border: 1 solid #ccc
+  color: #ccc
+  font-size: 1em
+  font-family: "Open Sans"
+  font-style: normal
+  font-strength: 400
+  margin: 0em
+  +at-breakpoint($phone)
+    +span-columns(12)

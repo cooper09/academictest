@@ -21463,8 +21463,8 @@ var App = React.createClass({displayName: "App",
 		return(
 			React.createElement("div", null, 
 				React.createElement("div", {className: "buttons"}, 
-					React.createElement("button", {onClick: this.showTeacher}, "Login as Teacher"), React.createElement("button", {onClick: this.showStudent}, "Login as Student")
-				), 
+					React.createElement("button", {className: "btn", onClick: this.showTeacher}, "Login as Teacher"), React.createElement("button", {className: "btn", onClick: this.showStudent}, "Login as Student")
+				), React.createElement("br", null), 
 				React.createElement(Teacher, {visible: this.state.teacherVisible, data: students, scores: scores}), 
 				React.createElement(Student, {visible: this.state.studentVisible, data: quizzes}), 
 				React.createElement(Quiz, {visible: this.state.quizVisible, data: scores, questions: questions})
@@ -21513,7 +21513,7 @@ var Quiz = React.createClass({displayName: "Quiz",
     var finalAnswer
 
 		return (
-			React.createElement("div", {className: "center option animated fadeIn"}, 
+			React.createElement("div", {className: "mainScrn center option animated fadeIn"}, 
 				React.createElement("h1", null, "Quiz Component"), 
 	
                     React.createElement("br", null), React.createElement("br", null), 
@@ -21524,7 +21524,7 @@ var Quiz = React.createClass({displayName: "Quiz",
                     React.createElement("br", null), React.createElement("br", null), 
                     			
                     React.createElement("div", {className: "buttons"}, 
-					    React.createElement("button", {onClick: submitQuiz.bind(this, finalAnswer)}, "Submit Quiz")
+					    React.createElement("button", {className: "scrnBtn", onClick: submitQuiz.bind(this, finalAnswer)}, "Submit Quiz")
                     )
                 )
             );
@@ -21601,7 +21601,9 @@ var Quiz = React.createClass({displayName: "Quiz",
                     //$("#quiz1").attr("display", "none")
                     AppActions.updateScores(resultObj);
 
-                    AppActions.showStudent();;
+                    //disable selected quiz
+
+                    AppActions.showStudent();
                 }
     }//end render
     
@@ -21656,13 +21658,13 @@ var Student = React.createClass({displayName: "Student",
 	
 	console.log('Student.js - props data: ', this.props.data );
 		return (
-			React.createElement("div", {className: "center option animated fadeIn"}, 
+			React.createElement("div", {className: "mainScrn center option animated fadeIn"}, 
 				React.createElement("h1", null, "Student One"), 
 				React.createElement("b", null, "Math"), 
 				React.createElement("br", null), React.createElement("br", null), 
-				React.createElement("button", {onClick: this.quizOne, num: "1"}, "Quiz One"), React.createElement("br", null), 
-				React.createElement("button", {onClick: this.quizTwo, num: "2"}, "Quiz Two"), React.createElement("br", null), 
-				React.createElement("button", {onClick: this.quizThree, num: "3"}, "Quiz Three"), React.createElement("br", null), 
+				React.createElement("button", {className: "scrnBtn", onClick: this.quizOne, num: "1"}, "Quiz One"), React.createElement("br", null), React.createElement("br", null), 
+				React.createElement("button", {className: "scrnBtn", onClick: this.quizTwo, num: "2"}, "Quiz Two"), React.createElement("br", null), React.createElement("br", null), 
+				React.createElement("button", {className: "scrnBtn", onClick: this.quizThree, num: "3"}, "Quiz Three"), React.createElement("br", null), 
 				React.createElement("br", null)
 			)
 			);
@@ -21718,7 +21720,7 @@ var Teacher = React.createClass({displayName: "Teacher",
 	var num=0;
 		
 		return (
-			React.createElement("div", {className: "center option animated fadeIn"}, 
+			React.createElement("div", {className: "mainScrn center option animated fadeIn"}, 
 				React.createElement("h1", null, "Teacher Component"), 
 				
 					studentArr.map(function(studentArr){
@@ -21735,7 +21737,7 @@ var Teacher = React.createClass({displayName: "Teacher",
 									React.createElement("b", null, "Quiz3 Score: ", scoreArr[2] ), 
 									React.createElement("br", null), 
 									React.createElement("br", null), 
-									React.createElement("button", {onClick: handleItemClick.bind(this, num, scoreArr)}, "grade")
+									React.createElement("button", {className: "scrnBtn", onClick: handleItemClick.bind(this, num, scoreArr)}, "grade")
 								)	
 					})	
 				

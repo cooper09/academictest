@@ -44,13 +44,13 @@ var Student = React.createClass({
 	
 	console.log('Student.js - props data: ', this.props.data );
 		return (
-			<div className='center option animated fadeIn'>
+			<div className='mainScrn center option animated fadeIn'>
 				<h1>Student One</h1>
 				<b>Math</b>
 				<br/><br/>
-				<button onClick={this.quizOne} num="1">Quiz One</button><br/>
-				<button onClick={this.quizTwo} num="2">Quiz Two</button><br/>
-				<button onClick={this.quizThree} num="3">Quiz Three</button><br/>
+				<button className="scrnBtn" onClick={this.quizOne} num="1">Quiz One</button><br/><br/>
+				<button className="scrnBtn" onClick={this.quizTwo} num="2">Quiz Two</button><br/><br/>
+				<button className="scrnBtn" onClick={this.quizThree} num="3">Quiz Three</button><br/>
 				<br/>
 			</div>
 			);

@@ -60,8 +60,8 @@ var App = React.createClass({
 		return(
 			<div>
 				<div className="buttons">
-					<button onClick={this.showTeacher}>Login as Teacher</button><button onClick={this.showStudent}>Login as Student</button>
-				</div>
+					<button className="btn" onClick={this.showTeacher}>Login as Teacher</button><button className="btn" onClick={this.showStudent}>Login as Student</button>
+				</div><br/>
 				<Teacher visible={this.state.teacherVisible} data={students} scores={scores}/>
 				<Student visible={this.state.studentVisible} data={quizzes}/>
 				<Quiz visible={this.state.quizVisible} data={scores} questions={questions}/>

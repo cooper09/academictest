@@ -13,16 +13,91 @@ html {
 /* line 9, ../sass/partials/_main.sass */
 body {
   background-size: 100% 100%;
-  margin: 2.5em;
+  font-family: "Open Sans";
+  font-style: normal;
+  font-strength: 400;
+  font-size: 1em;
+  color: #37474f;
 }
 @media (max-width: 651px) {
   /* line 9, ../sass/partials/_main.sass */
   body {
-    margin: 0.5em;
+    background: #ccc;
+    padding: 0em;
   }
 }
 
-/* line 15, ../sass/partials/_main.sass */
+/* line 20, ../sass/partials/_main.sass */
 h1 {
-  color: brown;
+  font-family: "Open Sans";
+  font-style: normal;
+  font-strength: 400;
+  font-size: 1.5em;
+  color: #37474f;
+}
+
+/* line 27, ../sass/partials/_main.sass */
+.mainScrn {
+  width: 100%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+  height: 100%;
+  background: #ccc;
+  border: 1px solid #666;
+  padding: 1em;
+  color: #333;
+  margin-top: 1em;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* line 39, ../sass/partials/_main.sass */
+.btn {
+  width: 49.15254%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+  cursor: pointer;
+  background: blue;
+  border: 1 solid #ccc;
+  color: #ccc;
+  font-size: 1em;
+  font-family: "Open Sans";
+  font-style: normal;
+  font-strength: 400;
+}
+@media (max-width: 651px) {
+  /* line 39, ../sass/partials/_main.sass */
+  .btn {
+    width: 100%;
+    float: left;
+    margin-right: 1.69492%;
+  }
+}
+
+/* line 52, ../sass/partials/_main.sass */
+.scrnBtn {
+  width: 32.20339%;
+  float: left;
+  margin-right: 1.69492%;
+  display: inline;
+  cursor: pointer;
+  background: blue;
+  border: 1 solid #ccc;
+  color: #ccc;
+  font-size: 1em;
+  font-family: "Open Sans";
+  font-style: normal;
+  font-strength: 400;
+  margin: 0em;
+}
+@media (max-width: 651px) {
+  /* line 52, ../sass/partials/_main.sass */
+  .scrnBtn {
+    width: 100%;
+    float: left;
+    margin-right: 1.69492%;
+  }
 }

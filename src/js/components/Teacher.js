@@ -44,7 +44,7 @@ var Teacher = React.createClass({
 	var num=0;
 		
 		return (
-			<div className='center option animated fadeIn'>
+			<div className='mainScrn center option animated fadeIn'>
 				<h1>Teacher Component</h1>
 				{
 					studentArr.map(function(studentArr){
@@ -61,7 +61,7 @@ var Teacher = React.createClass({
 									<b>Quiz3 Score: {scoreArr[2] }</b>
 									<br/>
 									<br/>
-									<button onClick={handleItemClick.bind(this, num, scoreArr )}>grade</button>
+									<button className="scrnBtn" onClick={handleItemClick.bind(this, num, scoreArr )}>grade</button>
 								</div>	
 					})	
 				}

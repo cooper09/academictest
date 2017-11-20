@@ -29,7 +29,7 @@ var Quiz = React.createClass({
     var finalAnswer
 
 		return (
-			<div className='center option animated fadeIn'>
+			<div className='mainScrn center option animated fadeIn'>
 				<h1>Quiz Component</h1>
 	
                     <br/><br/>
@@ -40,7 +40,7 @@ var Quiz = React.createClass({
                     <br/><br/>
                     			
                     <div className="buttons">
-					    <button onClick={submitQuiz.bind(this, finalAnswer )}>Submit Quiz</button>
+					    <button className="scrnBtn" onClick={submitQuiz.bind(this, finalAnswer )}>Submit Quiz</button>
                     </div>
                 </div>
             );
@@ -117,7 +117,9 @@ var Quiz = React.createClass({
                     //$("#quiz1").attr("display", "none")
                     AppActions.updateScores(resultObj);
 
-                    AppActions.showStudent();;
+                    //disable selected quiz
+
+                    AppActions.showStudent();
                 }
     }//end render
     
