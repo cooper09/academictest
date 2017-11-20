@@ -36,9 +36,9 @@ var Quiz = React.createClass({
 	
                     <br/><br/>
             1) {this.props.questions}<br/><br/>
-                    <input id="quiz1" type="radio" name="myGroupName" onChange={checkSelected.bind(this, v1, q1 )}>1812</input><br/>
-                    <input id="quiz2" type="radio" name="myGroupName"  checked={this.state.checked} onChange={checkSelected.bind(this)}>An infinite amount </input><br/>
-                    <input id="quiz3" type="radio" name="myGroupName" onChange={checkSelected.bind(this, v3, q3 )}>2 Pair of Pants </input>
+                    <input id="quiz1" type="radio" name="myGroupName" onChange={checkSelected.bind(this)}>1812</input><br/>
+                    <input id="quiz2" type="radio" name="myGroupName" onChange={checkSelected.bind(this)}>An infinite amount </input><br/>
+                    <input id="quiz3" type="radio" name="myGroupName" onChange={checkSelected.bind(this)}>2 Pair of Pants </input>
                     <br/><br/>
                     			
                     <div className="buttons">

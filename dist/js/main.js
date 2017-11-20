@@ -21520,9 +21520,9 @@ var Quiz = React.createClass({displayName: "Quiz",
 	
                     React.createElement("br", null), React.createElement("br", null), 
             "1) ", this.props.questions, React.createElement("br", null), React.createElement("br", null), 
-                    React.createElement("input", {id: "quiz1", type: "radio", name: "myGroupName", onChange: checkSelected.bind(this, v1, q1)}, "1812"), React.createElement("br", null), 
-                    React.createElement("input", {id: "quiz2", type: "radio", name: "myGroupName", checked: this.state.checked, onChange: checkSelected.bind(this)}, "An infinite amount "), React.createElement("br", null), 
-                    React.createElement("input", {id: "quiz3", type: "radio", name: "myGroupName", onChange: checkSelected.bind(this, v3, q3)}, "2 Pair of Pants "), 
+                    React.createElement("input", {id: "quiz1", type: "radio", name: "myGroupName", onChange: checkSelected.bind(this)}, "1812"), React.createElement("br", null), 
+                    React.createElement("input", {id: "quiz2", type: "radio", name: "myGroupName", onChange: checkSelected.bind(this)}, "An infinite amount "), React.createElement("br", null), 
+                    React.createElement("input", {id: "quiz3", type: "radio", name: "myGroupName", onChange: checkSelected.bind(this)}, "2 Pair of Pants "), 
                     React.createElement("br", null), React.createElement("br", null), 
                     			
                     React.createElement("div", {className: "buttons"}, 
