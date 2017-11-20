@@ -21501,8 +21501,6 @@ var Quiz = React.createClass({displayName: "Quiz",
 	} 
     
     console.log("current question: ", this.props.questions );
-    var questArr = [];
-    //questArr = this.props.questions;
 
     var v1 = ["wrong","wrong","correct"];
     var v2 = ["wrong", "correct", "wrong"];
@@ -21520,9 +21518,9 @@ var Quiz = React.createClass({displayName: "Quiz",
 	
                     React.createElement("br", null), React.createElement("br", null), 
             "1) ", this.props.questions, React.createElement("br", null), React.createElement("br", null), 
-                    React.createElement("input", {id: "quiz1", type: "radio", name: "myGroupName", onChange: checkSelected.bind(this)}, "1812"), React.createElement("br", null), 
-                    React.createElement("input", {id: "quiz2", type: "radio", name: "myGroupName", onChange: checkSelected.bind(this)}, "An infinite amount "), React.createElement("br", null), 
-                    React.createElement("input", {id: "quiz3", type: "radio", name: "myGroupName", onChange: checkSelected.bind(this)}, "2 Pair of Pants "), 
+                    React.createElement("input", {id: "ans1", type: "radio", name: "myGroupName", onChange: checkSelected.bind(this)}, "1812"), React.createElement("br", null), 
+                    React.createElement("input", {id: "ans2", type: "radio", name: "myGroupName", onChange: checkSelected.bind(this)}, "An infinite amount "), React.createElement("br", null), 
+                    React.createElement("input", {id: "ans3", type: "radio", name: "myGroupName", onChange: checkSelected.bind(this)}, "2 Pair of Pants "), 
                     React.createElement("br", null), React.createElement("br", null), 
                     			
                     React.createElement("div", {className: "buttons"}, 
@@ -21531,25 +21529,47 @@ var Quiz = React.createClass({displayName: "Quiz",
                 )
             );
             
-            function checkSelected (e, answer, quiz ){
+            function checkSelected (e){
                 //cooper s - use jquery to open/close each items content....
                 console.log("checkselected event target: ", e.target.id );
-                console.log("checkSelected: ", answer );
-                console.log("checkSelected which question: ", quiz);
-                switch (quiz) {
-                    case "q1":
-                        quiz = 1;
+
+                var currentAnswer = e.target.id;
+                var quiz;
+
+                switch (this.props.questions){
+                    case 'What has four legs and flies?':
+                        console.log("Check answer for question 1");
+                        currentQuiz = 1;
+                        if ( currentAnswer === 'ans3'){
+                            answer = "correct";
+                        } else {
+                            answer = "wrong";
+                        }
+                        
                     break;
-                    case "q2":
-                        quiz = 2;
+                    case 'How many angels can dance on the head of a pin?':
+                        currentQuiz = 2;
+                        console.log("Check answer for question 2");
+                        if ( currentAnswer === 'ans2'){
+                            answer = "correct";
+                        } else {
+                            answer = "wrong";
+                        }
                     break;
-                    case "q3":
-                        quiz = 3;
+                    case 'When was the war of 1812?':
+                        currentQuiz = 3
+                        console.log("Check answer for question 3");
+                        if ( currentAnswer === 'ans1'){
+                            answer = "correct";
+                        } else {
+                            answer = "wrong";
+                        }
                     break;
                 }//end switch
 
+               
                 this.setState({
-                    currentQuiz: quiz,
+                    currentQuiz: currentQuiz,
                     finalAnswer: answer
                 });  
 
@@ -21558,6 +21578,9 @@ var Quiz = React.createClass({displayName: "Quiz",
         function submitQuiz (answer, quiz ){
                 console.log("Current Quiz: ", this.state.currentQuiz )
                 console.log("The final answer: ", this.state.finalAnswer);
+
+
+
                 //    var done = true;
                 //    AppActions.showStudent();
                     
@@ -21571,8 +21594,12 @@ var Quiz = React.createClass({displayName: "Quiz",
                         result = "1";
                     }
 
-                    $("#quiz1").attr("display", "none")
-                    AppActions.updateScores(result);
+                    var resultObj = {
+                        quiz: this.state.currentQuiz,
+                        result: result
+                    }
+                    //$("#quiz1").attr("display", "none")
+                    AppActions.updateScores(resultObj);
 
                     AppActions.showStudent();;
                 }
@@ -21850,25 +21877,22 @@ function setQuizVisible(visible, question) {
 	_questions = question;
 }
 // update Quiz Scores
-function updateScores(data) {
-	console.log("AppStore.updateQuizScores: ", data );
+function updateScores(quiz, score) {
+	console.log("AppStore.updateQuizScores - quiz: ", quiz );
+	console.log("AppStore.updateQuizScores - score: ", score );
 	
-	switch (data) {
-		case '1':
+	switch (quiz) {
+		case 1:
 			console.log('update quiz 1');
-			_quiz1 = ++_quiz1;			
+			_quiz1 = score;			
 		break;
-		case '2':
+		case 2:
 			console.log('update quiz 2');
-			_quiz2 = ++_quiz2;
+			_quiz2 = score;
 		break;
-		case '3':
+		case 3:
 			console.log('update quiz 3');
-			_quiz3 = ++_quiz3;
-		break;
-		case '4':
-			console.log('update quiz 4');
-			_quiz4 = ++_quiz4;
+			_quiz3 = score;
 		break;
 	}//end switch
 }//end updateQuizScores
@@ -21962,9 +21986,10 @@ AppDispatcher.register(function(payload){
 		break;
 // QUIZ CONTROLS
 		case 'UPDATE_SCORES':
-			console.log("Update Quiz: ", payload );
-			var score = payload.action.data;
-			updateScores(score);
+			console.log("Update Quiz: ", payload.action.data );
+			var score = payload.action.data.result;
+			var quiz = payload.action.data.quiz;
+			updateScores(quiz, score);
 		break;
 				
 	}//end switch

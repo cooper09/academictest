@@ -17,8 +17,6 @@ var Quiz = React.createClass({
 	} 
     
     console.log("current question: ", this.props.questions );
-    var questArr = [];
-    //questArr = this.props.questions;
 
     var v1 = ["wrong","wrong","correct"];
     var v2 = ["wrong", "correct", "wrong"];
@@ -36,9 +34,9 @@ var Quiz = React.createClass({
 	
                     <br/><br/>
             1) {this.props.questions}<br/><br/>
-                    <input id="quiz1" type="radio" name="myGroupName" onChange={checkSelected.bind(this)}>1812</input><br/>
-                    <input id="quiz2" type="radio" name="myGroupName" onChange={checkSelected.bind(this)}>An infinite amount </input><br/>
-                    <input id="quiz3" type="radio" name="myGroupName" onChange={checkSelected.bind(this)}>2 Pair of Pants </input>
+                    <input id="ans1" type="radio" name="myGroupName" onChange={checkSelected.bind(this)}>1812</input><br/>
+                    <input id="ans2" type="radio" name="myGroupName" onChange={checkSelected.bind(this)}>An infinite amount </input><br/>
+                    <input id="ans3" type="radio" name="myGroupName" onChange={checkSelected.bind(this)}>2 Pair of Pants </input>
                     <br/><br/>
                     			
                     <div className="buttons">
@@ -47,25 +45,47 @@ var Quiz = React.createClass({
                 </div>
             );
             
-            function checkSelected (e, answer, quiz ){
+            function checkSelected (e){
                 //cooper s - use jquery to open/close each items content....
                 console.log("checkselected event target: ", e.target.id );
-                console.log("checkSelected: ", answer );
-                console.log("checkSelected which question: ", quiz);
-                switch (quiz) {
-                    case "q1":
-                        quiz = 1;
+
+                var currentAnswer = e.target.id;
+                var quiz;
+
+                switch (this.props.questions){
+                    case 'What has four legs and flies?':
+                        console.log("Check answer for question 1");
+                        currentQuiz = 1;
+                        if ( currentAnswer === 'ans3'){
+                            answer = "correct";
+                        } else {
+                            answer = "wrong";
+                        }
+                        
                     break;
-                    case "q2":
-                        quiz = 2;
+                    case 'How many angels can dance on the head of a pin?':
+                        currentQuiz = 2;
+                        console.log("Check answer for question 2");
+                        if ( currentAnswer === 'ans2'){
+                            answer = "correct";
+                        } else {
+                            answer = "wrong";
+                        }
                     break;
-                    case "q3":
-                        quiz = 3;
+                    case 'When was the war of 1812?':
+                        currentQuiz = 3
+                        console.log("Check answer for question 3");
+                        if ( currentAnswer === 'ans1'){
+                            answer = "correct";
+                        } else {
+                            answer = "wrong";
+                        }
                     break;
                 }//end switch
 
+               
                 this.setState({
-                    currentQuiz: quiz,
+                    currentQuiz: currentQuiz,
                     finalAnswer: answer
                 });  
 
@@ -74,6 +94,9 @@ var Quiz = React.createClass({
         function submitQuiz (answer, quiz ){
                 console.log("Current Quiz: ", this.state.currentQuiz )
                 console.log("The final answer: ", this.state.finalAnswer);
+
+
+
                 //    var done = true;
                 //    AppActions.showStudent();
                     
@@ -87,8 +110,12 @@ var Quiz = React.createClass({
                         result = "1";
                     }
 
-                    $("#quiz1").attr("display", "none")
-                    AppActions.updateScores(result);
+                    var resultObj = {
+                        quiz: this.state.currentQuiz,
+                        result: result
+                    }
+                    //$("#quiz1").attr("display", "none")
+                    AppActions.updateScores(resultObj);
 
                     AppActions.showStudent();;
                 }

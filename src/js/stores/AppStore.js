@@ -57,25 +57,22 @@ function setQuizVisible(visible, question) {
 	_questions = question;
 }
 // update Quiz Scores
-function updateScores(data) {
-	console.log("AppStore.updateQuizScores: ", data );
+function updateScores(quiz, score) {
+	console.log("AppStore.updateQuizScores - quiz: ", quiz );
+	console.log("AppStore.updateQuizScores - score: ", score );
 	
-	switch (data) {
-		case '1':
+	switch (quiz) {
+		case 1:
 			console.log('update quiz 1');
-			_quiz1 = ++_quiz1;			
+			_quiz1 = score;			
 		break;
-		case '2':
+		case 2:
 			console.log('update quiz 2');
-			_quiz2 = ++_quiz2;
+			_quiz2 = score;
 		break;
-		case '3':
+		case 3:
 			console.log('update quiz 3');
-			_quiz3 = ++_quiz3;
-		break;
-		case '4':
-			console.log('update quiz 4');
-			_quiz4 = ++_quiz4;
+			_quiz3 = score;
 		break;
 	}//end switch
 }//end updateQuizScores
@@ -169,9 +166,10 @@ AppDispatcher.register(function(payload){
 		break;
 // QUIZ CONTROLS
 		case 'UPDATE_SCORES':
-			console.log("Update Quiz: ", payload );
-			var score = payload.action.data;
-			updateScores(score);
+			console.log("Update Quiz: ", payload.action.data );
+			var score = payload.action.data.result;
+			var quiz = payload.action.data.quiz;
+			updateScores(quiz, score);
 		break;
 				
 	}//end switch
