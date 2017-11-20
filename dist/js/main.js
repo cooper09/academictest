@@ -21777,10 +21777,11 @@ function loadQuizzes(data) {
 }
 
 // Set visibility functions for each component
-function setTeacherVisible(visible){
+function setTeacherVisible(visible, score){
 	_teacherVisible=visible;
 	_studentVisible=false;
 	_quizVisible=false;
+	_quiz1=score;
 }
 
 function setStudentVisible(visible) {
@@ -21892,10 +21893,10 @@ AppDispatcher.register(function(payload){
 	  	break;
 // SHOWS
 		case 'SHOW_TEACHER':
-	  		console.log("OK we have my own personal event. About now I should be changing some state: ", payload.data );
+	  		console.log("OK we have my own personal event. About now I should be changing some state: ", payload.action.data );
 			_visible=true;
-			var score = payload.data;
-	      	setTeacherVisible(_visible);
+			var score = payload.action.data;
+	      	setTeacherVisible(_visible, score);
 	 	break;
 	 	case 'SHOW_STUDENT':
 	  	  	console.log("Show student page: ", payload );
