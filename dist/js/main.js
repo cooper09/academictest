@@ -21477,12 +21477,15 @@ module.exports = App;
 
 },{"../actions/AppActions":190,"../stores/AppStore":198,"./Quiz.js":192,"./Student.js":193,"./Teacher.js":194,"react":188}],192:[function(require,module,exports){
 var React = require('react');
+var AppActions = require('../actions/AppActions');
 
 var Quiz = React.createClass({displayName: "Quiz",
+    getInitialState: function () {
+            return {
+                finalAnswer: 0
+            }
+        },
 
-	doSomething: function (){
-		console.log("Do Something!!!");
-	},
 	render: function() {
 		 if (!this.props.visible) {
 		 	console.log("Quiz is off");
@@ -21490,32 +21493,67 @@ var Quiz = React.createClass({displayName: "Quiz",
 	} 
     
     console.log("current quetions: ", this.props.questions );
+    var questArr = [];
+    questArr = this.props.questions;
+
+    var v1 = "wrong";
+    var v2 = "wrong";
+    var v3 = "correct";
+
+    var finalAnswer
 
 		return (
 			React.createElement("div", {className: "center option animated fadeIn"}, 
-				React.createElement("h1", null, "Quiz Component"), 
-				React.createElement("input", {type: "text", value: this.props.questions, onChange: this.doSomething}), 
-
-                React.createElement("form", null, 
-                    React.createElement("input", {onChange: this.handleFruitChange, type: "checkbox", name: "fruit", value: "apple"}), "Apple", 
-                    React.createElement("input", {onChange: this.handleFruitChange, type: "checkbox", name: "fruit", value: "orange"}), "Orange", 
-                    React.createElement("input", {onChange: this.handleFruitChange, type: "checkbox", name: "fruit", value: "watermelon"}), "Watermelon"
-                ), 
-
-               React.createElement("form", {onSubmit: this.doSomething}, 
-                    this.props.questions, 
-                        React.createElement("button", {type: "submit"}, "Submit")
+				React.createElement("h1", null, "Quiz Component 3"), 
+	
+                    React.createElement("br", null), React.createElement("br", null), 
+            "1) ", this.props.questions, React.createElement("br", null), React.createElement("br", null), 
+                    React.createElement("input", {type: "radio", name: "myGroupName", onChange: checkSelected.bind(this, v1)}, "1812"), React.createElement("br", null), 
+                    React.createElement("input", {type: "radio", name: "myGroupName", onChange: checkSelected.bind(this, v2)}, "An infinite amount "), React.createElement("br", null), 
+                    React.createElement("input", {type: "radio", name: "myGroupName", onChange: checkSelected.bind(this, v3)}, "2 Pair of Pants "), 
+                    React.createElement("br", null), React.createElement("br", null), 
+                    			
+                    React.createElement("div", {className: "buttons"}, 
+					    React.createElement("button", {onClick: submitQuiz.bind(this, finalAnswer)}, "Submit Quiz")
                     )
+                )
+            );
             
+            function checkSelected (answer){
+				//cooper s - use jquery to open/close each items content....
+                console.log("checkSelected: ", answer );
+                this.setState({
+                    finalAnswer: answer
+                });  
 
-			)
-			);
-	}//end render
+        }//end checkSelected
+
+        function submitQuiz (answer){
+                console.log("The final answer: ", this.state.finalAnswer);
+                    //var answer = $('input:radio[name=fruit]:nth(0)').attr('checked',true);
+                //    var done = true;
+                //    AppActions.showStudent(done);
+                    
+                    var result = this.state.finalAnswer;
+                
+                    if ( result === "wrong"){
+                        console.log('submitQuiz - Our result is wrong');
+                        result = "0";
+                    } else {
+                        console.log('submitQuiz - Our result is correct');
+                        result = "1";
+                    }
+                    //this.props.scores = "1";
+
+                    AppActions.showTeacher(result );
+                }
+    }//end render
+    
 });//end Quiz Component
 
 module.exports = Quiz;
 
-},{"react":188}],193:[function(require,module,exports){
+},{"../actions/AppActions":190,"react":188}],193:[function(require,module,exports){
 var React = require('react');
 var AppActions = require('../actions/AppActions');
 
@@ -21562,10 +21600,9 @@ var Student = React.createClass({displayName: "Student",
 				React.createElement("h1", null, "Student One"), 
 				React.createElement("b", null, "Math"), 
 				React.createElement("br", null), React.createElement("br", null), 
-				React.createElement("button", {onClick: this.quizOne}, "Quiz One"), React.createElement("br", null), 
-				React.createElement("button", {onClick: this.quizTwo}, "Quiz Two"), React.createElement("br", null), 
-				React.createElement("button", {onClick: this.quizThree}, "Quiz Three"), React.createElement("br", null), 
-				React.createElement("button", {onClick: this.quizFour}, "Quiz Four"), React.createElement("br", null), 
+				React.createElement("button", {onClick: this.quizOne, num: "1"}, "Quiz One"), React.createElement("br", null), 
+				React.createElement("button", {onClick: this.quizTwo, num: "2"}, "Quiz Two"), React.createElement("br", null), 
+				React.createElement("button", {onClick: this.quizThree, num: "3"}, "Quiz Three"), React.createElement("br", null), 
 				React.createElement("br", null)
 			)
 			);
@@ -21855,20 +21892,21 @@ AppDispatcher.register(function(payload){
 	  	break;
 // SHOWS
 		case 'SHOW_TEACHER':
-	  	  console.log("OK we have my own personal event. About now I should be changing some state: ", payload );
-	      _visible=true;
-	      setTeacherVisible(_visible);
+	  		console.log("OK we have my own personal event. About now I should be changing some state: ", payload.data );
+			_visible=true;
+			var score = payload.data;
+	      	setTeacherVisible(_visible);
 	 	break;
 	 	case 'SHOW_STUDENT':
-	  	  console.log("Show student page: ", payload );
-	      _visible=true;
-	      setStudentVisible(_visible);
+	  	  	console.log("Show student page: ", payload );
+	      	_visible=true;
+	      	setStudentVisible(_visible);
 	 	break;
 	 	case 'SHOW_QUIZ':
-	  	  console.log("AppStore - Show Quiz: ", payload.action.data.question1 );
-		  _visible=true;
-		  var question = payload.action.data.question1;
-	      setQuizVisible(_visible, question );
+	  	  	console.log("AppStore - Show Quiz: ", payload.action.data.question1 );
+		  	_visible=true;
+		  	var question = payload.action.data.question1;
+	      	setQuizVisible(_visible, question );
 		break;
 // QUIZ CONTROLS
 		case 'UPDATE_QUIZ':

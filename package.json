@@ -20,6 +20,7 @@
     "axios": "*",
     "fusioncharts": "*",
     "react": "*",
+    "react-checkbox-group": "^3.3.4",
     "react-dom": "*",
     "react-fusioncharts": "*"
   }

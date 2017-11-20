@@ -44,10 +44,9 @@ var Student = React.createClass({
 				<h1>Student One</h1>
 				<b>Math</b>
 				<br/><br/>
-				<button onClick={this.quizOne}>Quiz One</button><br/>
-				<button onClick={this.quizTwo}>Quiz Two</button><br/>
-				<button onClick={this.quizThree}>Quiz Three</button><br/>
-				<button onClick={this.quizFour}>Quiz Four</button><br/>
+				<button onClick={this.quizOne} num="1">Quiz One</button><br/>
+				<button onClick={this.quizTwo} num="2">Quiz Two</button><br/>
+				<button onClick={this.quizThree} num="3">Quiz Three</button><br/>
 				<br/>
 			</div>
 			);

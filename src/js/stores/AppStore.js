@@ -148,20 +148,21 @@ AppDispatcher.register(function(payload){
 	  	break;
 // SHOWS
 		case 'SHOW_TEACHER':
-	  	  console.log("OK we have my own personal event. About now I should be changing some state: ", payload );
-	      _visible=true;
-	      setTeacherVisible(_visible);
+	  		console.log("OK we have my own personal event. About now I should be changing some state: ", payload.data );
+			_visible=true;
+			var score = payload.data;
+	      	setTeacherVisible(_visible);
 	 	break;
 	 	case 'SHOW_STUDENT':
-	  	  console.log("Show student page: ", payload );
-	      _visible=true;
-	      setStudentVisible(_visible);
+	  	  	console.log("Show student page: ", payload );
+	      	_visible=true;
+	      	setStudentVisible(_visible);
 	 	break;
 	 	case 'SHOW_QUIZ':
-	  	  console.log("AppStore - Show Quiz: ", payload.action.data.question1 );
-		  _visible=true;
-		  var question = payload.action.data.question1;
-	      setQuizVisible(_visible, question );
+	  	  	console.log("AppStore - Show Quiz: ", payload.action.data.question1 );
+		  	_visible=true;
+		  	var question = payload.action.data.question1;
+	      	setQuizVisible(_visible, question );
 		break;
 // QUIZ CONTROLS
 		case 'UPDATE_QUIZ':
