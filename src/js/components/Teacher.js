@@ -45,7 +45,7 @@ var Teacher = React.createClass({
 		
 		return (
 			<div className='center option animated fadeIn'>
-				<h1>Teacher Component</h1>
+				<h1>Teacher Component 1</h1>
 				{
 					studentArr.map(function(studentArr){
 						++num;
@@ -60,8 +60,7 @@ var Teacher = React.createClass({
 									<br/>
 									<b>Quiz3 Score: {scoreArr[2] }</b>
 									<br/>
-									<b>Quiz4 Score: {scoreArr[3] }</b>
-									<br/><br/>
+									<br/>
 									<button onClick={handleItemClick.bind(this, num, scoreArr )}>grade</button>
 								</div>	
 					})	
@@ -73,6 +72,22 @@ var Teacher = React.createClass({
 			console.log("nandleItemClick: ", arr );
 			
 			console.log("Grade our Student");
+			var sum = arr.reduce((a, b) => a + b, 0);
+			console.log(sum); // 6
+			switch(sum) {
+				case 0:
+					alert ("Student One currently has an F average");
+				break;
+				case 1:
+					alert ("Student One currently has a C average");
+				break;
+				case 2:
+					alert ("Student One currently has an B average");
+				case 3:
+					alert ("Student One currently has an A average");
+			break;
+			}//end switch
+	
 
 
 		}//end handleItemClick

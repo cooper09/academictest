@@ -46,7 +46,13 @@ var AppActions = {
         actionType: AppConstants.SHOW_QUIZ,
         data: data
       })
-    }    
-
+    },    
+// General Utilies - update scores, turn off buttons, etc...
+  updateScores: function (data){
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.UPDATE_SCORES,
+      data: data
+    })    
+  } //end updateScore 
 }//end AppActions
 module.exports = AppActions;

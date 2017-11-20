@@ -26,13 +26,13 @@ var Quiz = React.createClass({
 
 		return (
 			<div className='center option animated fadeIn'>
-				<h1>Quiz Component 3</h1>
+				<h1>Quiz Component</h1>
 	
                     <br/><br/>
             1) {this.props.questions}<br/><br/>
-                    <input type="radio" name="myGroupName" onChange={checkSelected.bind(this, v1 )}>1812</input><br/>
-                    <input type="radio" name="myGroupName" onChange={checkSelected.bind(this, v2 )}>An infinite amount </input><br/>
-                    <input type="radio" name="myGroupName" onChange={checkSelected.bind(this, v3 )}>2 Pair of Pants </input>
+                    <input id="quiz1" type="radio" name="myGroupName" onChange={checkSelected.bind(this, v1 )}>1812</input><br/>
+                    <input id="quiz2" type="radio" name="myGroupName" onChange={checkSelected.bind(this, v2 )}>An infinite amount </input><br/>
+                    <input id="quiz3" type="radio" name="myGroupName" onChange={checkSelected.bind(this, v3 )}>2 Pair of Pants </input>
                     <br/><br/>
                     			
                     <div className="buttons">
@@ -52,9 +52,8 @@ var Quiz = React.createClass({
 
         function submitQuiz (answer){
                 console.log("The final answer: ", this.state.finalAnswer);
-                    //var answer = $('input:radio[name=fruit]:nth(0)').attr('checked',true);
                 //    var done = true;
-                //    AppActions.showStudent(done);
+                //    AppActions.showStudent();
                     
                     var result = this.state.finalAnswer;
                 
@@ -65,9 +64,11 @@ var Quiz = React.createClass({
                         console.log('submitQuiz - Our result is correct');
                         result = "1";
                     }
-                    //this.props.scores = "1";
 
-                    AppActions.showTeacher(result );
+                    $("#quiz1").attr("display", "none")
+                    AppActions.updateScores(result);
+
+                    AppActions.showStudent();;
                 }
     }//end render
     

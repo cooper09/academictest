@@ -21389,8 +21389,14 @@ var AppActions = {
         actionType: AppConstants.SHOW_QUIZ,
         data: data
       })
-    }    
-
+    },    
+// General Utilies - update scores, turn off buttons, etc...
+  updateScores: function (data){
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.UPDATE_SCORES,
+      data: data
+    })    
+  } //end updateScore 
 }//end AppActions
 module.exports = AppActions;
 
@@ -21504,13 +21510,13 @@ var Quiz = React.createClass({displayName: "Quiz",
 
 		return (
 			React.createElement("div", {className: "center option animated fadeIn"}, 
-				React.createElement("h1", null, "Quiz Component 3"), 
+				React.createElement("h1", null, "Quiz Component"), 
 	
                     React.createElement("br", null), React.createElement("br", null), 
             "1) ", this.props.questions, React.createElement("br", null), React.createElement("br", null), 
-                    React.createElement("input", {type: "radio", name: "myGroupName", onChange: checkSelected.bind(this, v1)}, "1812"), React.createElement("br", null), 
-                    React.createElement("input", {type: "radio", name: "myGroupName", onChange: checkSelected.bind(this, v2)}, "An infinite amount "), React.createElement("br", null), 
-                    React.createElement("input", {type: "radio", name: "myGroupName", onChange: checkSelected.bind(this, v3)}, "2 Pair of Pants "), 
+                    React.createElement("input", {id: "quiz1", type: "radio", name: "myGroupName", onChange: checkSelected.bind(this, v1)}, "1812"), React.createElement("br", null), 
+                    React.createElement("input", {id: "quiz2", type: "radio", name: "myGroupName", onChange: checkSelected.bind(this, v2)}, "An infinite amount "), React.createElement("br", null), 
+                    React.createElement("input", {id: "quiz3", type: "radio", name: "myGroupName", onChange: checkSelected.bind(this, v3)}, "2 Pair of Pants "), 
                     React.createElement("br", null), React.createElement("br", null), 
                     			
                     React.createElement("div", {className: "buttons"}, 
@@ -21530,9 +21536,8 @@ var Quiz = React.createClass({displayName: "Quiz",
 
         function submitQuiz (answer){
                 console.log("The final answer: ", this.state.finalAnswer);
-                    //var answer = $('input:radio[name=fruit]:nth(0)').attr('checked',true);
                 //    var done = true;
-                //    AppActions.showStudent(done);
+                //    AppActions.showStudent();
                     
                     var result = this.state.finalAnswer;
                 
@@ -21543,9 +21548,11 @@ var Quiz = React.createClass({displayName: "Quiz",
                         console.log('submitQuiz - Our result is correct');
                         result = "1";
                     }
-                    //this.props.scores = "1";
 
-                    AppActions.showTeacher(result );
+                    $("#quiz1").attr("display", "none")
+                    AppActions.updateScores(result);
+
+                    AppActions.showStudent();;
                 }
     }//end render
     
@@ -21586,6 +21593,10 @@ var Student = React.createClass({displayName: "Student",
 			"question1": "Does this make sense?"
 		}
 		AppActions.showQuiz(questions);
+	},
+
+	closeQuiz: function () {
+		alert("This Quiz is now closed!!");
 	},
 
 	render: function() {
@@ -21659,7 +21670,7 @@ var Teacher = React.createClass({displayName: "Teacher",
 		
 		return (
 			React.createElement("div", {className: "center option animated fadeIn"}, 
-				React.createElement("h1", null, "Teacher Component"), 
+				React.createElement("h1", null, "Teacher Component 1"), 
 				
 					studentArr.map(function(studentArr){
 						++num;
@@ -21674,8 +21685,7 @@ var Teacher = React.createClass({displayName: "Teacher",
 									React.createElement("br", null), 
 									React.createElement("b", null, "Quiz3 Score: ", scoreArr[2] ), 
 									React.createElement("br", null), 
-									React.createElement("b", null, "Quiz4 Score: ", scoreArr[3] ), 
-									React.createElement("br", null), React.createElement("br", null), 
+									React.createElement("br", null), 
 									React.createElement("button", {onClick: handleItemClick.bind(this, num, scoreArr)}, "grade")
 								)	
 					})	
@@ -21687,6 +21697,22 @@ var Teacher = React.createClass({displayName: "Teacher",
 			console.log("nandleItemClick: ", arr );
 			
 			console.log("Grade our Student");
+			var sum = arr.reduce((a, b) => a + b, 0);
+			console.log(sum); // 6
+			switch(sum) {
+				case 0:
+					alert ("Student One currently has an F average");
+				break;
+				case 1:
+					alert ("Student One currently has a C average");
+				break;
+				case 2:
+					alert ("Student One currently has an B average");
+				case 3:
+					alert ("Student One currently has an A average");
+			break;
+			}//end switch
+	
 
 
 		}//end handleItemClick
@@ -21703,8 +21729,9 @@ module.exports = {
 	//SHOWEACS
 	SHOW_TEACHER: "SHOW_TEACHER", 
 	SHOW_STUDENT: "SHOW_STUDENT",
-	SHOW_QUIZ: "SHOW_QUIZ"  
-
+	SHOW_QUIZ: "SHOW_QUIZ",  
+	//UPDATE UI
+	UPDATE_SCORES: "UPDATE_SCORES"
 }// end exports
 
 },{}],196:[function(require,module,exports){
@@ -21776,12 +21803,15 @@ function loadQuizzes(data) {
 	console.log("AppStore.loadQuizzes ", _quizzes );
 }
 
+function updateScores(score) {
+	_quiz1=score;
+}
+
 // Set visibility functions for each component
-function setTeacherVisible(visible, score){
+function setTeacherVisible(visible){
 	_teacherVisible=visible;
 	_studentVisible=false;
 	_quizVisible=false;
-	_quiz1=score;
 }
 
 function setStudentVisible(visible) {
@@ -21798,7 +21828,7 @@ function setQuizVisible(visible, question) {
 	_questions = question;
 }
 // update Quiz Scores
-function updateQuizScores(data) {
+function updateScores(data) {
 	console.log("AppStore.updateQuizScores: ", data );
 	
 	switch (data) {
@@ -21895,8 +21925,7 @@ AppDispatcher.register(function(payload){
 		case 'SHOW_TEACHER':
 	  		console.log("OK we have my own personal event. About now I should be changing some state: ", payload.action.data );
 			_visible=true;
-			var score = payload.action.data;
-	      	setTeacherVisible(_visible, score);
+	      	setTeacherVisible(_visible);
 	 	break;
 	 	case 'SHOW_STUDENT':
 	  	  	console.log("Show student page: ", payload );
@@ -21910,10 +21939,12 @@ AppDispatcher.register(function(payload){
 	      	setQuizVisible(_visible, question );
 		break;
 // QUIZ CONTROLS
-		case 'UPDATE_QUIZ':
+		case 'UPDATE_SCORES':
 			console.log("Update Quiz: ", payload );
-			updateQuizScore(payload);
-		break;		
+			var score = payload.action.data;
+			updateScores(score);
+		break;
+				
 	}//end switch
 
 	AppStore.emitChange();

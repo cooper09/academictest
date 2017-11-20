@@ -32,12 +32,15 @@ function loadQuizzes(data) {
 	console.log("AppStore.loadQuizzes ", _quizzes );
 }
 
+function updateScores(score) {
+	_quiz1=score;
+}
+
 // Set visibility functions for each component
-function setTeacherVisible(visible, score){
+function setTeacherVisible(visible){
 	_teacherVisible=visible;
 	_studentVisible=false;
 	_quizVisible=false;
-	_quiz1=score;
 }
 
 function setStudentVisible(visible) {
@@ -54,7 +57,7 @@ function setQuizVisible(visible, question) {
 	_questions = question;
 }
 // update Quiz Scores
-function updateQuizScores(data) {
+function updateScores(data) {
 	console.log("AppStore.updateQuizScores: ", data );
 	
 	switch (data) {
@@ -151,8 +154,7 @@ AppDispatcher.register(function(payload){
 		case 'SHOW_TEACHER':
 	  		console.log("OK we have my own personal event. About now I should be changing some state: ", payload.action.data );
 			_visible=true;
-			var score = payload.action.data;
-	      	setTeacherVisible(_visible, score);
+	      	setTeacherVisible(_visible);
 	 	break;
 	 	case 'SHOW_STUDENT':
 	  	  	console.log("Show student page: ", payload );
@@ -166,10 +168,12 @@ AppDispatcher.register(function(payload){
 	      	setQuizVisible(_visible, question );
 		break;
 // QUIZ CONTROLS
-		case 'UPDATE_QUIZ':
+		case 'UPDATE_SCORES':
 			console.log("Update Quiz: ", payload );
-			updateQuizScore(payload);
-		break;		
+			var score = payload.action.data;
+			updateScores(score);
+		break;
+				
 	}//end switch
 
 	AppStore.emitChange();

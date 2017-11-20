@@ -32,6 +32,10 @@ var Student = React.createClass({
 		AppActions.showQuiz(questions);
 	},
 
+	closeQuiz: function () {
+		alert("This Quiz is now closed!!");
+	},
+
 	render: function() {
 		 if (!this.props.visible) {
 		 	console.log("Student is off");
