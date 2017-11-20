@@ -21454,12 +21454,6 @@ var App = React.createClass({displayName: "App",
 		var scores = this.state.scores;
 		var questions = this.state.questions;
 
-		console.log("App loaded teachers: ", teachers );
-		console.log("App loaded students: ", students );
-		console.log("App loaded quizzes: ", quizzes );
-		console.log("Current quiz questions: ", questions );
-		console.log("Current quiz scores: ", scores );
-
 		return(
 			React.createElement("div", null, 
 				React.createElement("div", {className: "buttons"}, 
@@ -21502,14 +21496,6 @@ var Quiz = React.createClass({displayName: "Quiz",
     
     console.log("current question: ", this.props.questions );
 
-    var v1 = ["wrong","wrong","correct"];
-    var v2 = ["wrong", "correct", "wrong"];
-    var v3 = ["correct","wrong","wrong"];
-
-    var q1 = "q1";
-    var q2 = "q2";
-    var q3 = "q3";
-
     var finalAnswer
 
 		return (
@@ -21545,7 +21531,6 @@ var Quiz = React.createClass({displayName: "Quiz",
                         } else {
                             answer = "wrong";
                         }
-                        
                     break;
                     case 'How many angels can dance on the head of a pin?':
                         currentQuiz = 2;
@@ -21579,11 +21564,6 @@ var Quiz = React.createClass({displayName: "Quiz",
                 console.log("Current Quiz: ", this.state.currentQuiz )
                 console.log("The final answer: ", this.state.finalAnswer);
 
-
-
-                //    var done = true;
-                //    AppActions.showStudent();
-                    
                     var result = this.state.finalAnswer;
                 
                     if ( result === "wrong"){
@@ -21598,11 +21578,7 @@ var Quiz = React.createClass({displayName: "Quiz",
                         quiz: this.state.currentQuiz,
                         result: result
                     }
-                    //$("#quiz1").attr("display", "none")
                     AppActions.updateScores(resultObj);
-
-                    //disable selected quiz
-
                     AppActions.showStudent();
                 }
     }//end render
@@ -21703,19 +21679,6 @@ var Teacher = React.createClass({displayName: "Teacher",
 	scoreArr = this.props.scores;
 	console.log("Teacher - scoreArr: ", scoreArr );
 
-	var subjectArr = [];
-	subjectArr = studentArr[0].subjects;
-
-	console.log('quiz result: ', subjectArr[0].Math[1].quiz2 );
-	console.log('subjectArr: ', subjectArr[0].Math );
-
-	var quizArr = [];
-	mathArr = subjectArr[0];
-
-	console.log('mathArr: ', mathArr );
-
-	quizArr = mathArr[0];
-	console.log('quizArr: ', quizArr );
 
 	var num=0;
 		

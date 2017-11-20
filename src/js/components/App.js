@@ -51,12 +51,6 @@ var App = React.createClass({
 		var scores = this.state.scores;
 		var questions = this.state.questions;
 
-		console.log("App loaded teachers: ", teachers );
-		console.log("App loaded students: ", students );
-		console.log("App loaded quizzes: ", quizzes );
-		console.log("Current quiz questions: ", questions );
-		console.log("Current quiz scores: ", scores );
-
 		return(
 			<div>
 				<div className="buttons">

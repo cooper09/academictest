@@ -18,14 +18,6 @@ var Quiz = React.createClass({
     
     console.log("current question: ", this.props.questions );
 
-    var v1 = ["wrong","wrong","correct"];
-    var v2 = ["wrong", "correct", "wrong"];
-    var v3 = ["correct","wrong","wrong"];
-
-    var q1 = "q1";
-    var q2 = "q2";
-    var q3 = "q3";
-
     var finalAnswer
 
 		return (
@@ -61,7 +53,6 @@ var Quiz = React.createClass({
                         } else {
                             answer = "wrong";
                         }
-                        
                     break;
                     case 'How many angels can dance on the head of a pin?':
                         currentQuiz = 2;
@@ -95,11 +86,6 @@ var Quiz = React.createClass({
                 console.log("Current Quiz: ", this.state.currentQuiz )
                 console.log("The final answer: ", this.state.finalAnswer);
 
-
-
-                //    var done = true;
-                //    AppActions.showStudent();
-                    
                     var result = this.state.finalAnswer;
                 
                     if ( result === "wrong"){
@@ -114,11 +100,7 @@ var Quiz = React.createClass({
                         quiz: this.state.currentQuiz,
                         result: result
                     }
-                    //$("#quiz1").attr("display", "none")
                     AppActions.updateScores(resultObj);
-
-                    //disable selected quiz
-
                     AppActions.showStudent();
                 }
     }//end render

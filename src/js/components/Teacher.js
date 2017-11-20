@@ -27,19 +27,6 @@ var Teacher = React.createClass({
 	scoreArr = this.props.scores;
 	console.log("Teacher - scoreArr: ", scoreArr );
 
-	var subjectArr = [];
-	subjectArr = studentArr[0].subjects;
-
-	console.log('quiz result: ', subjectArr[0].Math[1].quiz2 );
-	console.log('subjectArr: ', subjectArr[0].Math );
-
-	var quizArr = [];
-	mathArr = subjectArr[0];
-
-	console.log('mathArr: ', mathArr );
-
-	quizArr = mathArr[0];
-	console.log('quizArr: ', quizArr );
 
 	var num=0;
 		

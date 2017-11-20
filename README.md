@@ -1,6 +1,6 @@
-# simple react-template
+# simple reactjs "quizzer"
 
-A use as-is base template for univeral use. (Is that redundant?)
+Simple "first-go" 
 
 Includes node packages (work with most Node versions up to 8.1.4) 
 
@@ -14,7 +14,19 @@ An added little feature is the use of sass to create the css, so be sure to inst
 
 Comes complete with one simple component and a basic flux framework (though no flux components are included (stores, events, constants, etc...)).
 
-I also included an API utility in the utils folder that uses the axios node module to make REST calls, but only for those that already know what they're doing. Its not particularly well documented.
+Data comes from local storage, but can be loaded just as easily from an API. 
+
+The architecture is simple. The Teacher, Student and Quiz objects are represented as Component classes. The dynamic data elements are represented via state variables, questions, scores, etc., along with when a component is displayed and when its not. Since this is a quickie, the framework is complete but the app only has 3 quizes with 3 possible answers. The "Student" either passes (1) or fails (0) with each submission and the "Teacher" grades the combined submission accordingly. 
+
+The app allows you to be both the Teacher and Student. 
+
+ToDo: 
+
+1) allow teacher to "create" quizzes with multiple questions.
+2) allow each quizzes to have discrete answers to each quiz.
+3) prevent the student from completing any quiz more than once. 
+
+If you like I can add these features, but this should be enough to demonstrate my understand of OOP, particularly using ReactJS. 
 
 If you have any questions or want to make any contributions, just let me know.
 
