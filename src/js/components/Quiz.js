@@ -4,6 +4,8 @@ var AppActions = require('../actions/AppActions');
 var Quiz = React.createClass({
     getInitialState: function () {
             return {
+                checked: false,
+                currentQuiz: 0,
                 finalAnswer: 0
             }
         },
@@ -14,13 +16,17 @@ var Quiz = React.createClass({
           return false; 
 	} 
     
-    console.log("current quetions: ", this.props.questions );
+    console.log("current question: ", this.props.questions );
     var questArr = [];
-    questArr = this.props.questions;
+    //questArr = this.props.questions;
 
-    var v1 = "wrong";
-    var v2 = "wrong";
-    var v3 = "correct";
+    var v1 = ["wrong","wrong","correct"];
+    var v2 = ["wrong", "correct", "wrong"];
+    var v3 = ["correct","wrong","wrong"];
+
+    var q1 = "q1";
+    var q2 = "q2";
+    var q3 = "q3";
 
     var finalAnswer
 
@@ -30,9 +36,9 @@ var Quiz = React.createClass({
 	
                     <br/><br/>
             1) {this.props.questions}<br/><br/>
-                    <input id="quiz1" type="radio" name="myGroupName" onChange={checkSelected.bind(this, v1 )}>1812</input><br/>
-                    <input id="quiz2" type="radio" name="myGroupName" onChange={checkSelected.bind(this, v2 )}>An infinite amount </input><br/>
-                    <input id="quiz3" type="radio" name="myGroupName" onChange={checkSelected.bind(this, v3 )}>2 Pair of Pants </input>
+                    <input id="quiz1" type="radio" name="myGroupName" onChange={checkSelected.bind(this, v1, q1 )}>1812</input><br/>
+                    <input id="quiz2" type="radio" name="myGroupName"  checked={this.state.checked} onChange={checkSelected.bind(this)}>An infinite amount </input><br/>
+                    <input id="quiz3" type="radio" name="myGroupName" onChange={checkSelected.bind(this, v3, q3 )}>2 Pair of Pants </input>
                     <br/><br/>
                     			
                     <div className="buttons">
@@ -41,16 +47,32 @@ var Quiz = React.createClass({
                 </div>
             );
             
-            function checkSelected (answer){
-				//cooper s - use jquery to open/close each items content....
+            function checkSelected (e, answer, quiz ){
+                //cooper s - use jquery to open/close each items content....
+                console.log("checkselected event target: ", e.target.id );
                 console.log("checkSelected: ", answer );
+                console.log("checkSelected which question: ", quiz);
+                switch (quiz) {
+                    case "q1":
+                        quiz = 1;
+                    break;
+                    case "q2":
+                        quiz = 2;
+                    break;
+                    case "q3":
+                        quiz = 3;
+                    break;
+                }//end switch
+
                 this.setState({
+                    currentQuiz: quiz,
                     finalAnswer: answer
                 });  
 
         }//end checkSelected
 
-        function submitQuiz (answer){
+        function submitQuiz (answer, quiz ){
+                console.log("Current Quiz: ", this.state.currentQuiz )
                 console.log("The final answer: ", this.state.finalAnswer);
                 //    var done = true;
                 //    AppActions.showStudent();

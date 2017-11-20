@@ -45,7 +45,7 @@ var Teacher = React.createClass({
 		
 		return (
 			<div className='center option animated fadeIn'>
-				<h1>Teacher Component 1</h1>
+				<h1>Teacher Component</h1>
 				{
 					studentArr.map(function(studentArr){
 						++num;
